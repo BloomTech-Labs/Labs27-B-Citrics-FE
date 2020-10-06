@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
+import SearchBar from './SearchBar/searchbar';
 
 import RenderHomePage from './RenderHomePage';
 
@@ -30,12 +31,8 @@ function HomeContainer({ LoadingComponent }) {
 
   return (
     <>
-      {authState.isAuthenticated && !userInfo && (
-        <LoadingComponent message="Fetching user profile..." />
-      )}
-      {authState.isAuthenticated && userInfo && (
-        <RenderHomePage userInfo={userInfo} authService={authService} />
-      )}
+      <h1>HomePage</h1>
+      <SearchBar />
     </>
   );
 }
