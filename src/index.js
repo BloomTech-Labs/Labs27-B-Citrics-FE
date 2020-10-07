@@ -19,6 +19,7 @@ import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 import NavBar from './components/NavBar';
+import Footer from './components/footer';
 ReactDOM.render(
   <Router>
     <React.StrictMode>
@@ -49,6 +50,7 @@ function App() {
           <Route path="/" component={HomePage} />
         </Switch>
       </Security>
+      <Footer />
     </>
   );
 }

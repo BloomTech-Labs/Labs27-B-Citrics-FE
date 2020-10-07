@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 import SearchBar from './SearchBar/searchbar';
+import Mapservice from './SearchBar/mapservice';
 
 import RenderHomePage from './RenderHomePage';
 
@@ -29,10 +30,24 @@ function HomeContainer({ LoadingComponent }) {
     return () => (isSubscribed = false);
   }, [memoAuthService]);
 
+  const [mapOn, setMapOn] = useState(false);
+
   return (
     <>
       <h1>HomePage</h1>
       <SearchBar />
+      {!mapOn && (
+        <button
+          onClick={e => {
+            e.stopPropagation();
+            setMapOn(true);
+          }}
+          id="map-toggle"
+        >
+          Find on Map
+        </button>
+      )}
+      {mapOn && <Mapservice />}
     </>
   );
 }

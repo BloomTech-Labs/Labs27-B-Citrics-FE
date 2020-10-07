@@ -39,6 +39,10 @@ function SearchBar() {
         onSearch={onSearch}
         placeholder="Begin Typing your Search Here"
       />
+      <img
+        style={{ width: '30px', height: '30px' }}
+        src="https://img.icons8.com/ios-filled/50/000000/map-marker.png"
+      />
     </div>
   );
 }
