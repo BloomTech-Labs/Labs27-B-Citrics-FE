@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
+import SearchBar from './SearchBar/searchbar';
+import Mapservice from './SearchBar/mapservice';
 
 // Ant Design Imports
 import 'antd/dist/antd.css';
@@ -38,6 +40,8 @@ function HomeContainer({ LoadingComponent }) {
       });
     return () => (isSubscribed = false);
   }, [memoAuthService]);
+
+  const [mapOn, setMapOn] = useState(false);
 
   return (
     <>
