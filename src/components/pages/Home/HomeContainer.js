@@ -17,7 +17,7 @@ function HomeContainer({ LoadingComponent }) {
   const [memoAuthService] = useMemo(() => [authService], []);
 
   // Ant Design Components
-  const { Header, Footer, Sider, Content } = Layout;
+  const { Footer, Sider, Content } = Layout;
   const { Search } = Input;
 
   useEffect(() => {
@@ -42,17 +42,6 @@ function HomeContainer({ LoadingComponent }) {
   return (
     <>
       <Layout>
-        <Header
-          style={{
-            background: '#778899',
-            display: 'flex',
-            justifyContent: 'flex-end',
-          }}
-        >
-          <a>Search</a>
-          <a>Trending</a>
-          <a>Profile</a>
-        </Header>
         <Layout style={{ height: '100vh' }}>
           <Content
             type="flex"
