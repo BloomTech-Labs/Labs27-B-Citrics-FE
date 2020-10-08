@@ -9,6 +9,7 @@ import {
 import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 
 import 'antd/dist/antd.less';
+import { Layout } from 'antd';
 
 import { NotFoundPage } from './components/pages/NotFound';
 import { ExampleListPage } from './components/pages/ExampleList';
@@ -40,15 +41,27 @@ function App() {
     history.push('/login');
   };
 
+  const { Header } = Layout;
+
   return (
-    <>
-      <Security {...config} onAuthRequired={authHandler}>
-        <Switch>
-          <Route path="/login" component={LoginPage} />
-          <Route path="/implicit/callback" component={LoginCallback} />
-          <Route path="/" component={HomePage} />
-        </Switch>
-      </Security>
-    </>
+    <Security {...config} onAuthRequired={authHandler}>
+      <Header
+        style={{
+          background: '#778899',
+          display: 'flex',
+          justifyContent: 'flex-end',
+        }}
+      >
+        <a>Search</a>
+        <a>Trending</a>
+        <a>Profile</a>
+      </Header>
+      <Switch>
+        <Route path="/login" component={LoginPage} />
+        <Route path="/implicit/callback" component={LoginCallback} />
+        {/* any of the routes you need secured should be registered as SecureRoutes */}
+        <Route path="/" component={HomePage} />
+      </Switch>
+    </Security>
   );
 }

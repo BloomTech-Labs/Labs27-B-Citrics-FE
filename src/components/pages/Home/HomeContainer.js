@@ -3,6 +3,13 @@ import { useOktaAuth } from '@okta/okta-react';
 import SearchBar from './SearchBar/searchbar';
 import Mapservice from './SearchBar/mapservice';
 
+// Ant Design Imports
+import 'antd/dist/antd.css';
+import { Layout, Input, Button } from 'antd';
+import { AudioOutlined } from '@ant-design/icons';
+// Home Page CSS
+import '../../../styles/home.css';
+
 import RenderHomePage from './RenderHomePage';
 
 function HomeContainer({ LoadingComponent }) {
@@ -10,6 +17,10 @@ function HomeContainer({ LoadingComponent }) {
   const [userInfo, setUserInfo] = useState(null);
   // eslint-disable-next-line
   const [memoAuthService] = useMemo(() => [authService], []);
+
+  // Ant Design Components
+  const { Footer, Sider, Content } = Layout;
+  const { Search } = Input;
 
   useEffect(() => {
     let isSubscribed = true;
@@ -34,20 +45,36 @@ function HomeContainer({ LoadingComponent }) {
 
   return (
     <>
-      <h1>HomePage</h1>
-      <SearchBar />
-      {!mapOn && (
-        <button
-          onClick={e => {
-            e.stopPropagation();
-            setMapOn(true);
+      <Layout>
+        <Layout style={{ height: '100vh' }}>
+          <Content
+            type="flex"
+            style={{ background: 'white', margin: '15%', height: '2.5rem' }}
+          >
+            <Search
+              placeholder="Search for a city"
+              enterButton="Search"
+              size="large"
+              onSearch={value => console.log(value)}
+            />
+            {/* <Button type="primary">Find On Map</Button> */}
+          </Content>
+          <Sider style={{ background: '#C3CFD9' }}></Sider>
+        </Layout>
+        <Footer
+          style={{
+            background: '#778899',
+            display: 'flex',
+            justifyContent: 'flex-end',
+            fontSize: '1.5em',
+            position: 'relative',
+            bottom: '0',
+            width: '100%',
           }}
-          id="map-toggle"
         >
-          Find on Map
-        </button>
-      )}
-      {mapOn && <Mapservice />}
+          <h2>Citrics</h2>
+        </Footer>
+      </Layout>
     </>
   );
 }

@@ -1,0 +1,16 @@
+/* html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+} */
+
+a {
+  padding-left: 2%;
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  color: #e8833a;
+}
