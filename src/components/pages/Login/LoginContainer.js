@@ -49,7 +49,7 @@ const LoginContainer = () => {
   }, []);
 
   return (
-    <div class="loginPage">
+    <div className="loginPage">
       <Row
         style={{
           color: '#072a42',
@@ -64,7 +64,7 @@ const LoginContainer = () => {
         <Col />
         <Col>
           <img
-            class="loginImage"
+            className="loginImage"
             margin="auto"
             src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60"
             alt="City in the night"
