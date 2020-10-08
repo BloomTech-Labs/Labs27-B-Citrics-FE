@@ -2,14 +2,13 @@
   "name": "labs-spa-starter",
   "version": "0.1.0",
   "private": false,
-  "license" : "MIT",
+  "license": "MIT",
   "repository": "github:Lambda-School-Labs/labs-spa-starter",
-  
   "dependencies": {
-    "@craco/craco": "^5.6.4",
+    "@craco/craco": "^5.7.0",
     "@okta/okta-react": "^3.0.2",
     "@okta/okta-signin-widget": "^4.1.2",
-    "antd": "^4.4.3",
+    "antd": "^4.6.6",
     "axios": "^0.19.2",
     "craco-less": "^1.17.0",
     "plotly.js": "^1.54.6",
@@ -20,12 +19,12 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
+    "start": "craco --max_old_space_size=4096 start",
+    "build": "craco --max_old_space_size=4096 build",
     "test": "craco test --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject",
     "prettier": "prettier --write \"**/*.+(js|jsx|json|css|md)\"",
-    "coverage": "npm test -- --coverage --watchAll=false",
+    "coverage": "npm test -- --passWithNoTests --watchAll=false",
     "lint": "eslint 'src/**/*.{js,jsx}' --fix",
     "format": "prettier --write 'src/**/*.{js,jsx,css,scss}'",
     "storybook": "start-storybook",
