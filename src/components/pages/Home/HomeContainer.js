@@ -5,6 +5,8 @@ import { useOktaAuth } from '@okta/okta-react';
 import 'antd/dist/antd.css';
 import { Layout, Input, Button } from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
+// Home Page CSS
+import '../../../styles/home.css';
 
 import RenderHomePage from './RenderHomePage';
 
@@ -39,21 +41,22 @@ function HomeContainer({ LoadingComponent }) {
 
   return (
     <>
-      <Layout style={{ height: '80%' }}>
+      <Layout>
         <Header
           style={{
-            background: '#C3CFD9',
+            background: '#778899',
             display: 'flex',
             justifyContent: 'flex-end',
           }}
         >
-          <a style={{ padding: '5px' }}>Search</a>
-          <a style={{ padding: '5px' }}>Trending</a>
-          <a style={{ padding: '5px' }}>Profile</a>
+          <a>Search</a>
+          <a>Trending</a>
+          <a>Profile</a>
         </Header>
-        <Layout>
+        <Layout style={{ height: '100vh' }}>
           <Content
-            style={{ background: 'white', margin: '15%', height: '70%' }}
+            type="flex"
+            style={{ background: 'white', margin: '15%', height: '2.5rem' }}
           >
             <Search
               placeholder="Search for a city"
@@ -67,10 +70,13 @@ function HomeContainer({ LoadingComponent }) {
         </Layout>
         <Footer
           style={{
-            background: '#C3CFD9',
+            background: '#778899',
             display: 'flex',
             justifyContent: 'flex-end',
             fontSize: '1.5em',
+            position: 'relative',
+            bottom: '0',
+            width: '100%',
           }}
         >
           <h2>Citrics</h2>
