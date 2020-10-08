@@ -42,7 +42,6 @@ function App() {
 
   return (
     <>
-      <NavBar />
       <Security {...config} onAuthRequired={authHandler}>
         <Switch>
           <Route path="/login" component={LoginPage} />
@@ -50,7 +49,6 @@ function App() {
           <Route path="/" component={HomePage} />
         </Switch>
       </Security>
-      <Footer />
     </>
   );
 }
