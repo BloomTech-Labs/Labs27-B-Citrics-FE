@@ -20,12 +20,18 @@ import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 import NavBar from './components/NavBar';
 import Footer from './components/footer';
+import { Provider } from 'react-redux';
+import { applyMiddleware, createStore } from 'redux';
+import { savedCityReducer } from './state/reducers/searched-cities-reducers';
+import thunk from 'redux-thunk';
+
+const store = createStore(savedCityReducer, applyMiddleware(thunk));
 ReactDOM.render(
-  <Router>
-    <React.StrictMode>
+  <Provider store={store}>
+    <Router>
       <App />
-    </React.StrictMode>
-  </Router>,
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );
 
