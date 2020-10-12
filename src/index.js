@@ -21,6 +21,8 @@ import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 import NavBar from './components/NavBar';
 import Footer from './components/footer';
+import MapService from './components/pages/Home/SearchBar/mapservice';
+import SearchBar from './components/pages/Home/SearchBar/searchbar';
 ReactDOM.render(
   <Router>
     <React.StrictMode>
@@ -60,7 +62,9 @@ function App() {
         <Route path="/login" component={LoginPage} />
         <Route path="/implicit/callback" component={LoginCallback} />
         {/* any of the routes you need secured should be registered as SecureRoutes */}
-        <Route path="/" component={HomePage} />
+        <Route path="/" exact component={HomePage} />
+        <Route path="/map" component={MapService} />
+        <Route path="/search" component={SearchBar} />
       </Switch>
     </Security>
   );
