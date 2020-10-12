@@ -2,14 +2,17 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 import SearchBar from './SearchBar/searchbar';
 import Mapservice from './SearchBar/mapservice';
+import { connect } from 'react-redux';
 
 import RenderHomePage from './RenderHomePage';
 
-function HomeContainer({ LoadingComponent }) {
+function HomeContainer(props) {
   const { authState, authService } = useOktaAuth();
   const [userInfo, setUserInfo] = useState(null);
   // eslint-disable-next-line
   const [memoAuthService] = useMemo(() => [authService], []);
+
+  useEffect(() => console.log(props), []);
 
   useEffect(() => {
     let isSubscribed = true;
@@ -52,4 +55,8 @@ function HomeContainer({ LoadingComponent }) {
   );
 }
 
-export default HomeContainer;
+const mapStateToProps = state => {
+  return { state };
+};
+
+export default connect(mapStateToProps, {})(HomeContainer);
