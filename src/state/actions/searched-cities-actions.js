@@ -23,3 +23,10 @@ export const addCity = input => {
     dispatch({ type: 'SAVE_CITY', payload: input });
   };
 };
+
+export const removeCity = input => {
+  return dispatch => {
+    console.log('remove city request', input);
+    dispatch({ type: 'REMOVE_CITY', payload: input });
+  };
+};

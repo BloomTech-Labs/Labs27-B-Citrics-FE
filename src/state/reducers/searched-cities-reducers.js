@@ -7,7 +7,7 @@ export const initialState = {
   isFetching: false,
 };
 
-export const savedCityReducer = (state = initialState, action) => {
+const cityReducer = (state = initialState, action) => {
   console.log(action);
   switch (action.type) {
     case 'FETCH_START': //when comparison data is requested, the state will now pull from the BE info for each city and save it
@@ -16,6 +16,7 @@ export const savedCityReducer = (state = initialState, action) => {
         isFetching: true,
       };
     case 'FETCH_SUCCESS': //info from BE grabbed, saved in state
+      //axios call goes here
       return {
         ...state,
         isFetching: false,
@@ -26,7 +27,7 @@ export const savedCityReducer = (state = initialState, action) => {
         ...state,
         isFetching: false,
       };
-    case 'SAVE_CITY': //add cities to the array of searching
+    case 'SAVE_CITY': //add cities to the array of cities to be compared
       let newList = state.cities;
       newList.append(action.payload.city);
 
@@ -40,9 +41,12 @@ export const savedCityReducer = (state = initialState, action) => {
       firstHalf.slice(0, action.payload.saveID - 1); //takes in a cityID which is the array index of the city. slices it out
       secondHalf.slice(action.payload.saveID); //slicing starts at deleted city
       newList = firstHalf.concat(secondHalf); //combines each half of the list using concatenating
+
       return {
         ...state,
         cities: newList,
       };
   }
 };
+
+export default cityReducer;
