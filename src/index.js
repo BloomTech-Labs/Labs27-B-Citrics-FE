@@ -85,6 +85,7 @@ function App() {
         style={{
           background: '#778899',
           display: 'flex',
+          justifyContent: 'space-between',
           fontSize: '1.5em',
           position: 'relative',
           bottom: '0',
