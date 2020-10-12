@@ -1,19 +1,9 @@
 import React from 'react';
 
-function Footer() {
+function FooterContents() {
   return (
-    <div
-      className="footer"
-      style={{
-        width: '100%',
-        height: '200px',
-        border: '1px solid gray',
-        backgroundColor: '#C3CFD9',
-        position: 'absolute',
-        bottom: '0px',
-      }}
-    >
-      <img style={{ width: '85%', height: '100%' }} src="" />
+    <div className="footer">
+      <img style={{ width: '85%', height: '100%' }} src="" alt="" />
       <h3
         className="footer-citrics"
         style={{
@@ -33,4 +23,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default FooterContents;

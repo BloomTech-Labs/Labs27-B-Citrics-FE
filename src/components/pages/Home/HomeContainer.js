@@ -19,7 +19,7 @@ function HomeContainer({ LoadingComponent }) {
   const [memoAuthService] = useMemo(() => [authService], []);
 
   // Ant Design Components
-  const { Footer, Sider, Content } = Layout;
+  const { Sider, Content } = Layout;
   const { Search } = Input;
 
   useEffect(() => {
@@ -41,39 +41,17 @@ function HomeContainer({ LoadingComponent }) {
     return () => (isSubscribed = false);
   }, [memoAuthService]);
 
-  const [mapOn, setMapOn] = useState(false);
-
   return (
     <>
-      <Layout>
-        <Layout style={{ height: '100vh' }}>
-          <Content
-            type="flex"
-            style={{ background: 'white', margin: '15%', height: '2.5rem' }}
-          >
-            <Search
-              placeholder="Search for a city"
-              enterButton="Search"
-              size="large"
-              onSearch={value => console.log(value)}
-            />
-            {/* <Button type="primary">Find On Map</Button> */}
-          </Content>
-          <Sider style={{ background: '#C3CFD9' }}></Sider>
-        </Layout>
-        <Footer
-          style={{
-            background: '#778899',
-            display: 'flex',
-            justifyContent: 'flex-end',
-            fontSize: '1.5em',
-            position: 'relative',
-            bottom: '0',
-            width: '100%',
-          }}
+      <Layout style={{ height: '100vh' }}>
+        <Content
+          type="flex"
+          style={{ background: 'white', margin: '15%', height: '2.5rem' }}
         >
-          <h2>Citrics</h2>
-        </Footer>
+          <SearchBar width={'100%'} />
+          {/* <Button type="primary">Find On Map</Button> */}
+        </Content>
+        <Sider style={{ background: '#C3CFD9' }}></Sider>
       </Layout>
     </>
   );
