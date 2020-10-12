@@ -1,9 +1,10 @@
+import { AutoComplete, Input } from 'antd';
+import 'antd/dist/antd.css';
 import React from 'react';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from 'use-places-autocomplete';
-import { AutoComplete, Input } from 'antd';
 const { Option } = AutoComplete;
 
 const inputStyles = {
@@ -24,7 +25,7 @@ function SearchBar(props) {
     },
   });
 
-  const onSelect = async address => {
+  const onSelectHandler = async address => {
     setValue(address, false);
     clearSuggestions();
 
@@ -41,19 +42,27 @@ function SearchBar(props) {
     setValue(e.target.value, true);
   };
 
+  // getPlacePredictions -> cannot read property of null
+  console.log(ready);
+  console.log(value);
+
   return (
     <div className="search-bar">
-      <AutoComplete style={inputStyles} onSelect={onSelect} disabled={!ready}>
+      <AutoComplete
+        style={inputStyles}
+        onSelect={onSelectHandler} /*disabled={!ready}*/
+      >
         {status === 'OK' &&
           data.map(({ id, description }) => (
             <Option key={id} value={description}>
               {description}
             </Option>
           ))}
+
         <Input.Search
           size="large"
           value={value}
-          enterbutton
+          // enterbutton
           placeholder="Search for a city..."
           onChange={onChangeHandler}
         />
