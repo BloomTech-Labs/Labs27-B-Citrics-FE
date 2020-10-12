@@ -7,7 +7,7 @@ import usePlacesAutocomplete, {
 } from 'use-places-autocomplete';
 const { Option } = AutoComplete;
 
-const inputStyles = {
+let inputStyles = {
   width: 400,
 };
 
@@ -25,6 +25,10 @@ function SearchBar(props) {
     },
   });
 
+  if (props.width) {
+    inputStyles = { ...inputStyles, width: props.width };
+  }
+
   const onSelectHandler = async address => {
     setValue(address, false);
     clearSuggestions();
@@ -41,10 +45,6 @@ function SearchBar(props) {
   const onChangeHandler = e => {
     setValue(e.target.value, true);
   };
-
-  // getPlacePredictions -> cannot read property of null
-  console.log(ready);
-  console.log(value);
 
   return (
     <div className="search-bar">

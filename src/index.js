@@ -67,7 +67,16 @@ function App() {
         <Route path="/map" component={MapService} />
         <Route path="/search" component={SearchBar} />
       </Switch>
-      <Footer>
+      <Footer
+        style={{
+          background: '#778899',
+          display: 'flex',
+          fontSize: '1.5em',
+          position: 'relative',
+          bottom: '0',
+          width: '100%',
+        }}
+      >
         <FooterContents />
       </Footer>
     </Security>
