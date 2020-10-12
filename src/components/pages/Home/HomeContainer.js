@@ -48,14 +48,7 @@ function HomeContainer({ LoadingComponent }) {
       <Layout>
         <Layout style={{ height: '100vh' }}>
           <Content type="flex" style={{ margin: '15%' }}>
-            {/* <Search
-              placeholder="Search for a city"
-              enterButton="Search"
-              size="large"
-              onSearch={value => console.log(value)}
-            /> */}
             <SearchBar></SearchBar>
-            {/* <Button type="primary">Find On Map</Button> */}
           </Content>
           <Sider style={{ background: '#D4D6D8' }}></Sider>
         </Layout>
