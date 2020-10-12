@@ -43,7 +43,10 @@ function SearchBar(props) {
 
   return (
     <div className="search-bar">
-      <AutoComplete style={inputStyles} onSelect={onSelect} disabled={!ready}>
+      <AutoComplete
+        style={inputStyles}
+        onSelect={onSelect} /* disabled={!ready} */
+      >
         {status === 'OK' &&
           data.map(({ id, description }) => (
             <Option key={id} value={description}>

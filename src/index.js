@@ -49,7 +49,7 @@ function App() {
     <Security {...config} onAuthRequired={authHandler}>
       <Header
         style={{
-          background: '#778899',
+          background: '#B3B5B8',
           display: 'flex',
           justifyContent: 'flex-end',
         }}
