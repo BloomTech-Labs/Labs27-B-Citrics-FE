@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import OktaSignIn from '@okta/okta-signin-widget';
 import '@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
-
+import { Row, Col } from 'antd';
+import './login.css';
 import { config } from '../../../utils/oktaConfig';
 
 const LoginContainer = () => {
@@ -21,7 +22,7 @@ const LoginContainer = () => {
       // add your custom logo to your signing/register widget here.
       i18n: {
         en: {
-          'primaryauth.title': 'Welcome to Labs Basic SPA Please sign in',
+          'primaryauth.title': 'Welcome Back to Citrics',
           // change title for your app
         },
       },
@@ -47,7 +48,40 @@ const LoginContainer = () => {
     );
   }, []);
 
-  return <div id="sign-in-widget" />;
+  return (
+    <div className="loginPage">
+      <Row
+        style={{
+          color: '#072a42',
+          fontSize: '30px',
+          fontStyle: 'italic',
+          background: '#072a42',
+        }}
+      >
+        <div>Citrics</div>
+      </Row>
+      <Row xs={1} md={2} lg={4} justify="space-around">
+        <Col />
+        <Col>
+          <img
+            className="loginImage"
+            margin="auto"
+            src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60"
+            alt="City in the night"
+          />
+        </Col>
+        <Col>
+          <div id="sign-in-widget" />
+        </Col>
+        <Col />
+      </Row>
+      <Row
+        style={{ color: '#072a42', fontSize: '30px', background: '#072a42' }}
+      >
+        <div>h</div>
+      </Row>
+    </div>
+  );
 };
 
 export default LoginContainer;
