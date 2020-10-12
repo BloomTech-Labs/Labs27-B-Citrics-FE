@@ -7,8 +7,6 @@ import {
   InfoWindow,
 } from '@react-google-maps/api';
 
-let api_key = process.env.REACT_APP_GOOGLE_MAPS_KEY;
-
 const libraries = ['places'];
 
 const mapContainerStyle = {
@@ -28,7 +26,7 @@ const options = {
 };
 const MapService = props => {
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
     libraries,
   });
 
