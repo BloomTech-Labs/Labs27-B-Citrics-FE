@@ -7,7 +7,7 @@ import {
   Switch,
   Link,
 } from 'react-router-dom';
-import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
+import { Security, LoginCallback /*SecureRoute*/ } from '@okta/okta-react';
 
 import 'antd/dist/antd.less';
 import { Layout } from 'antd';
@@ -18,15 +18,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NotFoundPage } from './components/pages/NotFound';
 import { ExampleListPage } from './components/pages/ExampleList';
 import { ProfileListPage } from './components/pages/ProfileList';
+
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
-import { ExampleDataViz } from './components/pages/ExampleDataViz';
+// import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
-import { LoadingComponent } from './components/common';
-import NavBar from './components/NavBar';
-import Footer from './components/footer';
+// import { LoadingComponent } from './components/common';
+// import NavBar from './components/NavBar';
+// import Footer from './components/footer';
 import MapService from './components/pages/Home/SearchBar/mapservice';
 import SearchBar from './components/pages/Home/SearchBar/searchbar';
+import FooterContents from './components/footer';
 ReactDOM.render(
   <Router>
     <React.StrictMode>
@@ -47,7 +49,7 @@ function App() {
     history.push('/login');
   };
 
-  const { Header } = Layout;
+  const { Header, Footer } = Layout;
 
   return (
     <Security {...config} onAuthRequired={authHandler}>
@@ -79,6 +81,18 @@ function App() {
         <Route path="/map" component={MapService} />
         <Route path="/search" component={SearchBar} />
       </Switch>
+      <Footer
+        style={{
+          background: '#778899',
+          display: 'flex',
+          fontSize: '1.5em',
+          position: 'relative',
+          bottom: '0',
+          width: '100%',
+        }}
+      >
+        <FooterContents />
+      </Footer>
     </Security>
   );
 }

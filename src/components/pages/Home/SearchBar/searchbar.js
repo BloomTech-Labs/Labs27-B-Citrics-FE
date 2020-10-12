@@ -1,12 +1,13 @@
+import { AutoComplete, Input } from 'antd';
+import 'antd/dist/antd.css';
 import React from 'react';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from 'use-places-autocomplete';
-import { AutoComplete, Input } from 'antd';
 const { Option } = AutoComplete;
 
-const inputStyles = {
+let inputStyles = {
   width: 400,
 };
 
@@ -24,7 +25,11 @@ function SearchBar(props) {
     },
   });
 
-  const onSelect = async address => {
+  if (props.width) {
+    inputStyles = { ...inputStyles, width: props.width };
+  }
+
+  const onSelectHandler = async address => {
     setValue(address, false);
     clearSuggestions();
 
@@ -45,7 +50,7 @@ function SearchBar(props) {
     <div className="search-bar">
       <AutoComplete
         style={inputStyles}
-        onSelect={onSelect} /* disabled={!ready} */
+        onSelect={onSelectHandler} /*disabled={!ready}*/
       >
         {status === 'OK' &&
           data.map(({ id, description }) => (
@@ -53,10 +58,11 @@ function SearchBar(props) {
               {description}
             </Option>
           ))}
+
         <Input.Search
           size="large"
           value={value}
-          enterbutton
+          // enterbutton
           placeholder="Search for a city..."
           onChange={onChangeHandler}
         />
