@@ -8,7 +8,7 @@ import usePlacesAutocomplete, {
 const { Option } = AutoComplete;
 
 let inputStyles = {
-  width: 400,
+  width: 600,
 };
 
 function SearchBar(props) {

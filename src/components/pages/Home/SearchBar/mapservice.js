@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import mapStyles from './mapStyles';
+import SearchBar from './searchbar';
 import {
   GoogleMap,
   useLoadScript,
-  // Marker,
+  Marker,
   // InfoWindow,
 } from '@react-google-maps/api';
 
@@ -30,10 +31,10 @@ const MapService = props => {
     libraries,
   });
 
-  // const panTo = React.useCallback(({ lat, lng }) => {
-  //   mapRef.current.panTo({ lat, lng });
-  //   mapRef.current.setZoom(14);
-  // }, []);
+  const panTo = React.useCallback(({ lat, lng }) => {
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(14);
+  }, []);
 
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback(map => {
@@ -45,6 +46,9 @@ const MapService = props => {
 
   return (
     <>
+      <div className="search-bar-container">
+        <SearchBar panToCenter={panTo} />
+      </div>
       <div id="map">
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
