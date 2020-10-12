@@ -5,15 +5,20 @@ import {
   Route,
   useHistory,
   Switch,
+  Link,
 } from 'react-router-dom';
 import { Security, LoginCallback /*SecureRoute*/ } from '@okta/okta-react';
 
 import 'antd/dist/antd.less';
 import { Layout } from 'antd';
 
-// import { NotFoundPage } from './components/pages/NotFound';
-// import { ExampleListPage } from './components/pages/ExampleList';
-// import { ProfileListPage } from './components/pages/ProfileList';
+import './components/FontAwesomeIcons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { NotFoundPage } from './components/pages/NotFound';
+import { ExampleListPage } from './components/pages/ExampleList';
+import { ProfileListPage } from './components/pages/ProfileList';
+
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
 // import { ExampleDataViz } from './components/pages/ExampleDataViz';
@@ -50,14 +55,23 @@ function App() {
     <Security {...config} onAuthRequired={authHandler}>
       <Header
         style={{
-          background: '#778899',
+          background: '#B3B5B8',
           display: 'flex',
           justifyContent: 'flex-end',
         }}
       >
-        <a>Search</a>
-        <a>Trending</a>
-        <a>Profile</a>
+        <Link to="/map">
+          <FontAwesomeIcon icon={['fas', 'search']}></FontAwesomeIcon>
+          Search
+        </Link>
+        <Link to="/">
+          <FontAwesomeIcon icon={['fas', 'chart-area']}></FontAwesomeIcon>
+          Trending
+        </Link>
+        <Link to="/">
+          <FontAwesomeIcon icon={['fas', 'user-circle']}></FontAwesomeIcon>
+          Profile
+        </Link>
       </Header>
       <Switch>
         <Route path="/login" component={LoginPage} />
