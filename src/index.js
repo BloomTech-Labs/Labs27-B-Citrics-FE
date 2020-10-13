@@ -109,13 +109,19 @@ function App() {
             alt="avatar"
             style={{ width: '100px', height: '100px' }}
           />
-          <Card style={{ width: '90%', marginTop: '20px' }}>
-            <h3>Comparison</h3>
+          <Card
+            style={{ width: '90%', marginTop: '20px', textAlign: 'center' }}
+          >
+            <Link style={{ textDecoration: 'underline' }} to="/comparison">
+              Comparison
+            </Link>
             <p>------</p>
             <p>------</p>
             <p>------</p>
           </Card>
-          <Card style={{ width: '90%', marginTop: '20px' }}>
+          <Card
+            style={{ width: '90%', marginTop: '20px', textAlign: 'center' }}
+          >
             <h3>Preferred Metrics</h3>
             <p>------</p>
             <p>------</p>

@@ -11,7 +11,7 @@ import { addMarker } from '../../../../state/actions/searched-cities-actions';
 const { Option } = AutoComplete;
 
 let inputStyles = {
-  width: 600,
+  width: 800,
 };
 
 function SearchBar(props) {
