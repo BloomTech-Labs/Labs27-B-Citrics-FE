@@ -43,7 +43,11 @@ function SearchBar(props) {
       const results = await getGeocode({ address });
       const { lat, lng } = await getLatLng(results[0]);
 
-      const payload = { lat, lng, cityName: '' };
+      const payload = {
+        lat,
+        lng,
+        cityName: results[0].address_components[0].long_name,
+      };
       dispatch(addMarker(payload));
 
       if (props.panToCenter) return props.panToCenter({ lat, lng });

@@ -53,8 +53,6 @@ const MapService = props => {
   if (loadError) return 'Error Loading Maps';
   if (!isLoaded) return 'Loading...';
 
-  console.log(markers);
-
   return (
     <>
       <div className="search-bar-container">
@@ -73,12 +71,12 @@ const MapService = props => {
               key={`${marker.lat}-${marker.lng}`}
               position={{ lat: marker.lat, lng: marker.lng }}
               onClick={e => setSelected(marker)}
-              // icon={{
-              //   url: `pointer.svg`,
-              //   origin: new window.google.maps.Point(0, 0),
-              //   anchor: new window.google.maps.Point(15, 15),
-              //   scaledSize: new window.google.maps.Size(40, 40),
-              // }}
+              icon={{
+                url: `pointer.svg`,
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(15, 15),
+                scaledSize: new window.google.maps.Size(40, 40),
+              }}
             />
           ))}
 
@@ -88,7 +86,7 @@ const MapService = props => {
               onCloseClick={() => setSelected(null)}
             >
               <div className="pointer-info">
-                <h2>City Name</h2>
+                <h2>{selected.cityName ? selected.cityName : 'Error'}</h2>
                 <Button type="primary" size="large">
                   Add to Comparison
                 </Button>

@@ -17,7 +17,6 @@ export const initialState = {
 };
 
 export const savedCityReducer = (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
     default:
       return state;
