@@ -13,11 +13,25 @@ export const initialState = {
     city3: {},
   },
   isFetching: false,
+  markers: [],
 };
 
 export const savedCityReducer = (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
+    default:
+      return state;
+    case 'SAVE_MARKER':
+      return {
+        ...state,
+        markers: [
+          ...state.markers,
+          {
+            lat: action.payload.lat,
+            lng: action.payload.lng,
+            cityName: action.payload.cityName,
+          },
+        ],
+      };
     case 'FETCH_START': //when comparison data is requested, the state will now pull from the BE info for each city and save it
       return {
         ...state,

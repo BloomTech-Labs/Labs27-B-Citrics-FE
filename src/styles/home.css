@@ -14,3 +14,13 @@ a {
 a:hover {
   color: #e8833a;
 }
+
+.search-bar-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 2;
+  top: 80px;
+}
