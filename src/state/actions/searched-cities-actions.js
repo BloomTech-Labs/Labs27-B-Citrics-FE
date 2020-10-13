@@ -23,3 +23,10 @@ export const addCity = input => {
     dispatch({ type: 'SAVE_CITY', payload: input });
   };
 };
+
+export const addMarker = ({ lat, lng, cityName }) => {
+  return dispatch => {
+    console.log(`City Marked: lat: ${lat}, lng: ${lng}, cityName: ${cityName}`);
+    dispatch({ type: 'SAVE_MARKER', payload: { lat, lng, cityName } });
+  };
+};

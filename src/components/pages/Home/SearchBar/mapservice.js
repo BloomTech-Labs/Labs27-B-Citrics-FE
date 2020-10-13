@@ -5,8 +5,10 @@ import {
   GoogleMap,
   useLoadScript,
   Marker,
-  // InfoWindow,
+  InfoWindow,
 } from '@react-google-maps/api';
+import { useSelector } from 'react-redux';
+import { Button } from 'antd';
 
 const libraries = ['places'];
 
@@ -25,7 +27,14 @@ const options = {
   disableDefaultUI: true,
   zoomControl: true,
 };
+
+// COMPONENT
 const MapService = props => {
+  // REDUX STATE
+  const markers = useSelector(state => state.cityReducer.markers);
+
+  const [selected, setSelected] = useState(null);
+
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
     libraries,
@@ -44,6 +53,8 @@ const MapService = props => {
   if (loadError) return 'Error Loading Maps';
   if (!isLoaded) return 'Loading...';
 
+  console.log(markers);
+
   return (
     <>
       <div className="search-bar-container">
@@ -56,7 +67,35 @@ const MapService = props => {
           center={center}
           options={options}
           onLoad={onMapLoad}
-        ></GoogleMap>
+        >
+          {markers.map(marker => (
+            <Marker
+              key={`${marker.lat}-${marker.lng}`}
+              position={{ lat: marker.lat, lng: marker.lng }}
+              onClick={e => setSelected(marker)}
+              // icon={{
+              //   url: `pointer.svg`,
+              //   origin: new window.google.maps.Point(0, 0),
+              //   anchor: new window.google.maps.Point(15, 15),
+              //   scaledSize: new window.google.maps.Size(40, 40),
+              // }}
+            />
+          ))}
+
+          {selected ? (
+            <InfoWindow
+              position={{ lat: selected.lat, lng: selected.lng }}
+              onCloseClick={() => setSelected(null)}
+            >
+              <div className="pointer-info">
+                <h2>City Name</h2>
+                <Button type="primary" size="large">
+                  Add to Comparison
+                </Button>
+              </div>
+            </InfoWindow>
+          ) : null}
+        </GoogleMap>
       </div>
     </>
   );

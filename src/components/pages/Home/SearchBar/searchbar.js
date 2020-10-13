@@ -5,6 +5,9 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from 'use-places-autocomplete';
+import { useDispatch } from 'react-redux';
+import { addMarker } from '../../../../state/actions/searched-cities-actions';
+
 const { Option } = AutoComplete;
 
 let inputStyles = {
@@ -12,6 +15,8 @@ let inputStyles = {
 };
 
 function SearchBar(props) {
+  const dispatch = useDispatch();
+
   const {
     ready,
     value,
@@ -34,9 +39,14 @@ function SearchBar(props) {
     clearSuggestions();
 
     try {
+      console.log('selected');
       const results = await getGeocode({ address });
       const { lat, lng } = await getLatLng(results[0]);
-      props.panToCenter({ lat, lng });
+
+      const payload = { lat, lng, cityName: '' };
+      dispatch(addMarker(payload));
+
+      if (props.panToCenter) return props.panToCenter({ lat, lng });
     } catch (error) {
       console.log('😱 Error: ', error);
     }
@@ -50,7 +60,8 @@ function SearchBar(props) {
     <div className="search-bar">
       <AutoComplete
         style={inputStyles}
-        onSelect={onSelectHandler} /*disabled={!ready}*/
+        onSelect={onSelectHandler}
+        disabled={!ready}
       >
         {status === 'OK' &&
           data.map(({ id, description }) => (

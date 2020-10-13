@@ -15,25 +15,36 @@ import { Layout } from 'antd';
 import './components/FontAwesomeIcons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+// REDUX
+import reducers from './state/reducers/index';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import logger from 'redux-thunk';
+
+// COMPONENTS
 import { NotFoundPage } from './components/pages/NotFound';
 import { ExampleListPage } from './components/pages/ExampleList';
 import { ProfileListPage } from './components/pages/ProfileList';
-
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
-// import { ExampleDataViz } from './components/pages/ExampleDataViz';
+import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
-// import { LoadingComponent } from './components/common';
-// import NavBar from './components/NavBar';
-// import Footer from './components/footer';
+import { LoadingComponent } from './components/common';
 import MapService from './components/pages/Home/SearchBar/mapservice';
 import SearchBar from './components/pages/Home/SearchBar/searchbar';
 import FooterContents from './components/footer';
+const { Header, Footer } = Layout;
+
+const store = createStore(reducers, applyMiddleware(thunk, logger));
+
 ReactDOM.render(
   <Router>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <Provider store={store}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </Provider>
   </Router>,
   document.getElementById('root')
 );
@@ -48,8 +59,6 @@ function App() {
     // It'll automatically check if userToken is available and push back to login if not :)
     history.push('/login');
   };
-
-  const { Header, Footer } = Layout;
 
   return (
     <Security {...config} onAuthRequired={authHandler}>
