@@ -72,10 +72,11 @@ const MapService = props => {
               position={{ lat: marker.lat, lng: marker.lng }}
               onClick={e => setSelected(marker)}
               icon={{
-                url: `pointer.svg`,
+                // Need to tweak the URL to get pointer.svg to work, this one is temporary
+                url: `https://www.flaticon.com/svg/static/icons/svg/1181/1181732.svg`,
                 origin: new window.google.maps.Point(0, 0),
                 anchor: new window.google.maps.Point(15, 15),
-                scaledSize: new window.google.maps.Size(40, 40),
+                scaledSize: new window.google.maps.Size(50, 50),
               }}
             />
           ))}
