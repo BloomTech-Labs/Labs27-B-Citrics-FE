@@ -55,8 +55,8 @@ const MapService = props => {
 
   return (
     <>
-      <div className="search-bar-container">
-        <SearchBar panToCenter={panTo} />
+      <div className="search-bar-container" style={{ width: '100%' }}>
+        <SearchBar panToCenter={panTo} width={800} />
       </div>
       <div id="map">
         <GoogleMap
