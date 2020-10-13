@@ -29,6 +29,7 @@ import { config } from './utils/oktaConfig';
 import MapService from './components/pages/Home/SearchBar/mapservice';
 import SearchBar from './components/pages/Home/SearchBar/searchbar';
 import FooterContents from './components/footer';
+import Compare from './components/comparePage';
 ReactDOM.render(
   <Router>
     <React.StrictMode>
@@ -80,6 +81,7 @@ function App() {
         <Route path="/" exact component={HomePage} />
         <Route path="/map" component={MapService} />
         <Route path="/search" component={SearchBar} />
+        <Route path="/compare" component={Compare} />
       </Switch>
       <Footer
         style={{
