@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -10,7 +10,7 @@ import {
 import { Security, LoginCallback /*SecureRoute*/ } from '@okta/okta-react';
 
 import 'antd/dist/antd.less';
-import { Layout } from 'antd';
+import { Card, Drawer, Layout } from 'antd';
 
 import './components/FontAwesomeIcons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,9 +18,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // REDUX
 import reducers from './state/reducers/index';
 import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-thunk';
+
+// ACTIONS
+import { openDrawer, closeDrawer } from './state/actions/userActions';
 
 // COMPONENTS
 import { NotFoundPage } from './components/pages/NotFound';
@@ -54,6 +57,11 @@ function App() {
   // React Router has a nifty useHistory hook we can use at this level to ensure we have security around our routes.
   const history = useHistory();
 
+  const drawer_open = useSelector(state => state.userReducer.profileIsOpen);
+  const [visible, setVisible] = useState(false);
+
+  const dispatch = useDispatch();
+
   const authHandler = () => {
     // We pass this to our <Security /> component that wraps our routes.
     // It'll automatically check if userToken is available and push back to login if not :)
@@ -77,11 +85,44 @@ function App() {
           <FontAwesomeIcon icon={['fas', 'chart-area']}></FontAwesomeIcon>
           Trending
         </Link>
-        <Link to="/">
+        <button
+          className="button-link"
+          onClick={() => {
+            setVisible(!visible);
+          }}
+        >
           <FontAwesomeIcon icon={['fas', 'user-circle']}></FontAwesomeIcon>
           Profile
-        </Link>
+        </button>
       </Header>
+      <Drawer
+        title="Profile"
+        placement="right"
+        closable={true}
+        onClose={() => setVisible(false)}
+        visible={visible}
+      >
+        <div className="profile">
+          <h2>Username</h2>
+          <img
+            src="https://www.flaticon.com/svg/static/icons/svg/219/219988.svg"
+            alt="avatar"
+            style={{ width: '100px', height: '100px' }}
+          />
+          <Card style={{ width: '90%', marginTop: '20px' }}>
+            <h3>Comparison</h3>
+            <p>------</p>
+            <p>------</p>
+            <p>------</p>
+          </Card>
+          <Card style={{ width: '90%', marginTop: '20px' }}>
+            <h3>Preferred Metrics</h3>
+            <p>------</p>
+            <p>------</p>
+            <p>------</p>
+          </Card>
+        </div>
+      </Drawer>
       <Switch>
         <Route path="/login" component={LoginPage} />
         <Route path="/implicit/callback" component={LoginCallback} />

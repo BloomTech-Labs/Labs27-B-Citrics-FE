@@ -55,7 +55,7 @@ const MapService = props => {
 
   return (
     <>
-      <div className="search-bar-container">
+      <div className="search-bar-container" style={{ width: '100%' }}>
         <SearchBar panToCenter={panTo} />
       </div>
       <div id="map">
