@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import mapStyles from './mapStyles';
 import SearchBar from './searchbar';
 import {
@@ -8,7 +8,9 @@ import {
   InfoWindow,
 } from '@react-google-maps/api';
 import { useSelector } from 'react-redux';
-import { Button } from 'antd';
+import { Button, Drawer } from 'antd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CitySelect from './CitySelect';
 
 const libraries = ['places'];
 
@@ -32,8 +34,11 @@ const options = {
 const MapService = props => {
   // REDUX STATE
   const markers = useSelector(state => state.cityReducer.markers);
+  const compareList = useSelector(state => state.userReducer.comparison);
+  console.log(compareList);
 
   const [selected, setSelected] = useState(null);
+  const [visible, setVisible] = useState(false);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
@@ -42,13 +47,18 @@ const MapService = props => {
 
   const panTo = React.useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(14);
+    mapRef.current.setZoom(12);
   }, []);
 
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback(map => {
     mapRef.current = map;
   }, []);
+
+  // UseEffect to check if a new search has been made
+  useEffect(() => {
+    setSelected(markers[markers.length - 1]);
+  }, [markers]);
 
   if (loadError) return 'Error Loading Maps';
   if (!isLoaded) return 'Loading...';
@@ -59,6 +69,26 @@ const MapService = props => {
         <SearchBar panToCenter={panTo} width={800} />
       </div>
       <div id="map">
+        <Button
+          onClick={() => setVisible(!visible)}
+          className="btn open-drawer"
+        >
+          <FontAwesomeIcon icon={['fas', 'list-ul']}></FontAwesomeIcon>
+        </Button>
+        <Drawer
+          width={500}
+          mask={false}
+          placement="left"
+          closable={true}
+          onClose={() => setVisible(false)}
+          visible={visible}
+        >
+          <CitySelect
+            list={markers}
+            selected={selected}
+            setSelected={setSelected}
+          />
+        </Drawer>
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={5}
@@ -88,8 +118,13 @@ const MapService = props => {
             >
               <div className="pointer-info">
                 <h2>{selected.cityName ? selected.cityName : 'Error'}</h2>
-                <Button type="primary" size="large">
-                  Add to Comparison
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Debitis repellendus recusandae nisi voluptatem non accusantium
+                  esse dolorem consequatur qui molestiae.
+                </p>
+                <Button className="btn" type="primary" size="large">
+                  View
                 </Button>
               </div>
             </InfoWindow>

@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 import SearchBar from './SearchBar/searchbar';
-import Mapservice from './SearchBar/mapservice';
 
 // Ant Design Imports
 import 'antd/dist/antd.css';
 import { Layout, Input, Button } from 'antd';
-import { AudioOutlined } from '@ant-design/icons';
+
 // Home Page CSS
 import '../../../styles/home.css';
 
 import RenderHomePage from './RenderHomePage';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function HomeContainer({ LoadingComponent }) {
   const { authState, authService } = useOktaAuth();
@@ -20,7 +20,6 @@ function HomeContainer({ LoadingComponent }) {
 
   // Ant Design Components
   const { Sider, Content } = Layout;
-  const { Search } = Input;
 
   useEffect(() => {
     let isSubscribed = true;
@@ -43,11 +42,16 @@ function HomeContainer({ LoadingComponent }) {
 
   return (
     <>
-      <Layout style={{ height: '100vh' }}>
-        <Content type="flex" style={{ margin: '15%' }}>
-          <SearchBar width={'100%'} />
-        </Content>
-      </Layout>
+      <div className="search-container">
+        <SearchBar width={'100%'} />
+        <Button className="find-on-map">
+          Find On Map{' '}
+          <FontAwesomeIcon
+            className="find-on-map-i"
+            icon={['fas', 'compass']}
+          ></FontAwesomeIcon>
+        </Button>
+      </div>
     </>
   );
 }
