@@ -43,3 +43,13 @@ a:hover {
   flex-direction: column;
   justify-content: center;
 }
+
+.city-container {
+  border: 1px solid black;
+  display: flex;
+  max-height: 250px;
+}
+
+.city-img {
+  object-fit: cover;
+}
