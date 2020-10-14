@@ -38,6 +38,7 @@ import MapService from './components/pages/Home/SearchBar/mapservice';
 import SearchBar from './components/pages/Home/SearchBar/searchbar';
 import FooterContents from './components/footer';
 import Profile from './components/pages/Home/Profile';
+import Compare from './components/comparePage';
 const { Header, Footer } = Layout;
 
 const store = createStore(reducers, applyMiddleware(thunk, logger));
@@ -112,6 +113,7 @@ function App() {
         <Route path="/" exact component={HomePage} />
         <Route path="/map" component={MapService} />
         <Route path="/search" component={SearchBar} />
+        <Route path="/compare" component={Compare} />
       </Switch>
       <Footer
         style={{

@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import { Button, Drawer } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CitySelect from './CitySelect';
+import { useHistory } from 'react-router-dom';
 
 const libraries = ['places'];
 
@@ -36,6 +37,8 @@ const MapService = props => {
   const markers = useSelector(state => state.cityReducer.markers);
   const compareList = useSelector(state => state.userReducer.comparison);
   console.log(compareList);
+
+  const history = useHistory();
 
   const [selected, setSelected] = useState(null);
   const [visible, setVisible] = useState(false);
@@ -123,8 +126,17 @@ const MapService = props => {
                   Debitis repellendus recusandae nisi voluptatem non accusantium
                   esse dolorem consequatur qui molestiae.
                 </p>
-                <Button className="btn" type="primary" size="large">
-                  View
+                <Button
+                  onClick={() => {
+                    markers.length > 1
+                      ? history.push('/compare')
+                      : setVisible(true);
+                  }}
+                  className="btn"
+                  type="primary"
+                  size="large"
+                >
+                  {markers.length > 1 ? 'Compare' : 'View'}
                 </Button>
               </div>
             </InfoWindow>
