@@ -3,61 +3,48 @@ import React, { useState } from 'react';
 //component imports
 import Footer from './footer';
 import SearchBar from './pages/Home/SearchBar/searchbar';
+import CityCard from './CityCard';
 
 // antd imports
 import { Layout, Card, Button } from 'antd';
 const { Header, Sider, Content } = Layout;
 
 //styles
-const topSearch = {
-  display: 'flex',
-  //flexDirection: 'row',
-  alignItems: 'flex-end',
-};
+
 const styles = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-end',
-};
-const searchCard = {
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'flex-end',
-  width: 600,
 };
+
 function Compare(props) {
   const [cities, setCities] = useState();
 
+  const cityInfo = [
+    { cityId: 0, name: 'Nola', population: 324235, crime: 500, rating: 3 },
+    { cityId: 1, name: 'Orlando', population: 324235, crime: 500, rating: 3 },
+    { cityId: 2, name: 'Memphis', population: 324235, crime: 500, rating: 3 },
+    {
+      cityId: 3,
+      name: 'Baton Rouge',
+      population: 324235,
+      crime: 500,
+      rating: 3,
+    },
+    { cityId: 4, name: 'New York', population: 324235, crime: 500, rating: 3 },
+    { cityId: 5, name: 'Mobile', population: 324235, crime: 500, rating: 3 },
+  ];
+
   return (
     <>
-      <div className="top-search" style={topSearch}>
-        <SearchBar width={'60%'} />
-        <Button> Find on Map </Button>
-      </div>
-
-      <div className="search-cities" style={searchCard}>
-        <Card title="Search Cities" bordered={false} style={{ width: 300 }}>
-          <a>MAP </a>
-          <p>City Name</p>
-          <p>Overall Rating</p>
-          <p>Crime</p>
-          <p>Cost of Living</p>
-          <p>Population</p>
-        </Card>
-
-        <div className="profile-side" style={styles}>
-          <Card title="Comparsion" style={{ width: 300 }}>
-            <h3>profile link</h3>
-            <p>First Name</p>
-            <p>Last Name</p>
-            <p>Location</p>
-          </Card>
-          <Card title="Preferred Stats" style={{ width: 300 }}>
-            <p>Stats</p>
-            <p>Stats</p>
-          </Card>
-        </div>
-      </div>
+      {cityInfo.map(city => (
+        <CityCard
+          name={city.name}
+          pop={city.population}
+          crime={city.crime}
+          rating={city.rating}
+        />
+      ))}
     </>
   );
 }
