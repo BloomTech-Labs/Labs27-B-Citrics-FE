@@ -47,7 +47,7 @@ const MapService = props => {
 
   const panTo = React.useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(14);
+    mapRef.current.setZoom(12);
   }, []);
 
   const mapRef = React.useRef();
@@ -57,7 +57,6 @@ const MapService = props => {
 
   // UseEffect to check if a new search has been made
   useEffect(() => {
-    console.log('Selected');
     setSelected(markers[markers.length - 1]);
   }, [markers]);
 
@@ -84,7 +83,11 @@ const MapService = props => {
           onClose={() => setVisible(false)}
           visible={visible}
         >
-          <CitySelect />
+          <CitySelect
+            list={markers}
+            selected={selected}
+            setSelected={setSelected}
+          />
         </Drawer>
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
