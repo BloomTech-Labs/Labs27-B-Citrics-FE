@@ -43,3 +43,82 @@ a:hover {
   flex-direction: column;
   justify-content: center;
 }
+
+.btn {
+  background: #e8833a;
+  color: white;
+  font-weight: bold;
+}
+.btn:hover {
+  background: #dc6510;
+  color: white;
+}
+
+.btn-i {
+  color: white;
+  margin-left: 10px;
+}
+
+.open-drawer {
+  position: absolute;
+  z-index: 2;
+}
+
+.city-select-banner {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100vw;
+}
+
+.city-list-item {
+  line-height: 70px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  width: 70%;
+  cursor: pointer;
+  color: white;
+  text-shadow: 0 0 5px black;
+}
+
+.compare-list {
+    text-align: center
+}
+
+.city-select {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.city-info img {
+  margin-bottom: 30px;
+}
+
+.compare {
+  margin-top: 20px;
+}
+
+
+
+
+/* ANT DESIGN CAROUSEL OVERRIDE */
+.ant-carousel .slick-dots li button {
+    background: #513ae8;
+    opacity: 0.4;
+    height: 10px;
+    margin-top: 30px;
+}
+
+.ant-carousel .slick-dots li.slick-active button {
+    opacity: 1;
+    background: #513ae8;
+}
+
+

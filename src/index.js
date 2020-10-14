@@ -37,6 +37,7 @@ import { LoadingComponent } from './components/common';
 import MapService from './components/pages/Home/SearchBar/mapservice';
 import SearchBar from './components/pages/Home/SearchBar/searchbar';
 import FooterContents from './components/footer';
+import Profile from './components/pages/Home/Profile';
 const { Header, Footer } = Layout;
 
 const store = createStore(reducers, applyMiddleware(thunk, logger));
@@ -102,32 +103,7 @@ function App() {
         onClose={() => setVisible(false)}
         visible={visible}
       >
-        <div className="profile">
-          <h2>Username</h2>
-          <img
-            src="https://www.flaticon.com/svg/static/icons/svg/219/219988.svg"
-            alt="avatar"
-            style={{ width: '100px', height: '100px' }}
-          />
-          <Card
-            style={{ width: '90%', marginTop: '20px', textAlign: 'center' }}
-          >
-            <Link style={{ textDecoration: 'underline' }} to="/comparison">
-              Comparison
-            </Link>
-            <p>------</p>
-            <p>------</p>
-            <p>------</p>
-          </Card>
-          <Card
-            style={{ width: '90%', marginTop: '20px', textAlign: 'center' }}
-          >
-            <h3>Preferred Metrics</h3>
-            <p>------</p>
-            <p>------</p>
-            <p>------</p>
-          </Card>
-        </div>
+        <Profile />
       </Drawer>
       <Switch>
         <Route path="/login" component={LoginPage} />
