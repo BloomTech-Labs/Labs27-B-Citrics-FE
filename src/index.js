@@ -37,6 +37,9 @@ import { LoadingComponent } from './components/common';
 import MapService from './components/pages/Home/SearchBar/mapservice';
 import SearchBar from './components/pages/Home/SearchBar/searchbar';
 import FooterContents from './components/footer';
+
+import Compare from './components/comparePage';
+
 import Profile from './components/pages/Home/Profile';
 const { Header, Footer } = Layout;
 
@@ -112,6 +115,7 @@ function App() {
         <Route path="/" exact component={HomePage} />
         <Route path="/map" component={MapService} />
         <Route path="/search" component={SearchBar} />
+        <Route path="/compare" component={Compare} />
       </Switch>
       <Footer
         style={{
