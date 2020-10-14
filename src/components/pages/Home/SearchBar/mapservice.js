@@ -66,7 +66,7 @@ const MapService = props => {
           onClick={() => setVisible(!visible)}
           className="btn open-drawer"
         >
-          <FontAwesomeIcon icon={['fas', 'arrow-right']}></FontAwesomeIcon>
+          <FontAwesomeIcon icon={['fas', 'list-ul']}></FontAwesomeIcon>
         </Button>
         <Drawer
           width={500}
@@ -107,8 +107,13 @@ const MapService = props => {
             >
               <div className="pointer-info">
                 <h2>{selected.cityName ? selected.cityName : 'Error'}</h2>
-                <Button type="primary" size="large">
-                  Add to Comparison
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Debitis repellendus recusandae nisi voluptatem non accusantium
+                  esse dolorem consequatur qui molestiae.
+                </p>
+                <Button className="btn" type="primary" size="large">
+                  View
                 </Button>
               </div>
             </InfoWindow>

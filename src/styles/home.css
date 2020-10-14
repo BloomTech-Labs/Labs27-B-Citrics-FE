@@ -78,7 +78,7 @@ a:hover {
 }
 
 .compare-list h3{
-  line-height: 100px;
+  line-height: 80px;
 }
 
 .compare-list {
@@ -106,3 +106,6 @@ a:hover {
     opacity: 1;
     background: #e8833a;
 }
+
+/* INFO WINDOW STYLE OVERRIDE */
+

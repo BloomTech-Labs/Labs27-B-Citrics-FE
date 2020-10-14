@@ -5,7 +5,7 @@ import {
   faSearch,
   faMapMarker,
   faCompass,
-  faArrowRight,
+  faListUl,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,6 +15,6 @@ library.add(
   faSearch,
   faMapMarker,
   faCompass,
-  faArrowRight,
+  faListUl,
   faTrash
 );

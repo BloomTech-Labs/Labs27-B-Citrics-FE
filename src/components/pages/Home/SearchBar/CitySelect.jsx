@@ -5,6 +5,7 @@ import React from 'react';
 const CitySelect = props => {
     return (
         <div className="city-select">
+            <h3 style={{ textAlign: 'center' }}>Current List</h3>
             <div className="compare-list">
                 <Carousel
                     afterChange={() => console.log("Changed")}
@@ -45,7 +46,12 @@ const CitySelect = props => {
                     consectetur.
                 </p>
             </div>
-            <FontAwesomeIcon style={{ color: "red" }} icon={['fas', 'trash']}></FontAwesomeIcon>
+            <FontAwesomeIcon style={{
+                color: "red",
+                position: "absolute",
+                bottom: 10,
+                right: 10
+            }} icon={['fas', 'trash']}></FontAwesomeIcon>
         </div>
     );
 };
