@@ -20,5 +20,10 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         profileIsOpen: false,
       };
+    case 'ADD_CITY':
+      return {
+        ...state,
+        comparison: [...state.comparison, action.payload],
+      };
   }
 };

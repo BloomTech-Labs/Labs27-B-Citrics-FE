@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import mapStyles from './mapStyles';
 import SearchBar from './searchbar';
 import {
@@ -34,6 +34,8 @@ const options = {
 const MapService = props => {
   // REDUX STATE
   const markers = useSelector(state => state.cityReducer.markers);
+  const compareList = useSelector(state => state.userReducer.comparison);
+  console.log(compareList);
 
   const [selected, setSelected] = useState(null);
   const [visible, setVisible] = useState(false);
@@ -52,6 +54,12 @@ const MapService = props => {
   const onMapLoad = React.useCallback(map => {
     mapRef.current = map;
   }, []);
+
+  // UseEffect to check if a new search has been made
+  useEffect(() => {
+    console.log('Selected');
+    setSelected(markers[markers.length - 1]);
+  }, [markers]);
 
   if (loadError) return 'Error Loading Maps';
   if (!isLoaded) return 'Loading...';
