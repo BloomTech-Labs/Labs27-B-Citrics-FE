@@ -4,6 +4,17 @@ import {
   faChartArea,
   faSearch,
   faMapMarker,
+  faCompass,
+  faArrowRight,
+  faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faUserCircle, faChartArea, faSearch, faMapMarker);
+library.add(
+  faUserCircle,
+  faChartArea,
+  faSearch,
+  faMapMarker,
+  faCompass,
+  faArrowRight,
+  faTrash
+);

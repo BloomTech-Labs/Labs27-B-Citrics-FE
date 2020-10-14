@@ -8,7 +8,9 @@ import {
   InfoWindow,
 } from '@react-google-maps/api';
 import { useSelector } from 'react-redux';
-import { Button } from 'antd';
+import { Button, Drawer } from 'antd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CitySelect from './CitySelect';
 
 const libraries = ['places'];
 
@@ -34,6 +36,7 @@ const MapService = props => {
   const markers = useSelector(state => state.cityReducer.markers);
 
   const [selected, setSelected] = useState(null);
+  const [visible, setVisible] = useState(false);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
@@ -59,6 +62,22 @@ const MapService = props => {
         <SearchBar panToCenter={panTo} width={800} />
       </div>
       <div id="map">
+        <Button
+          onClick={() => setVisible(!visible)}
+          className="btn open-drawer"
+        >
+          <FontAwesomeIcon icon={['fas', 'arrow-right']}></FontAwesomeIcon>
+        </Button>
+        <Drawer
+          width={500}
+          mask={false}
+          placement="left"
+          closable={true}
+          onClose={() => setVisible(false)}
+          visible={visible}
+        >
+          <CitySelect />
+        </Drawer>
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={5}
