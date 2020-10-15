@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../styles/home.css';
 
-function CityCard() {
+function WideCityCard() {
   return (
     <>
       <div className="city-cards">
@@ -20,4 +20,4 @@ function CityCard() {
   );
 }
 
-export default CityCard;
+export default WideCityCard;
