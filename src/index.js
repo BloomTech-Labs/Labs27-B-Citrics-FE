@@ -33,6 +33,7 @@ import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
 import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
+
 import { LoadingComponent } from './components/common';
 import MapService from './components/pages/Home/SearchBar/mapservice';
 import SearchBar from './components/pages/Home/SearchBar/searchbar';
@@ -52,8 +53,7 @@ ReactDOM.render(
       </React.StrictMode>
     </Provider>
   </Router>,
-  document.getElementById('root')
-);
+
 
 function App() {
   // The reason to declare App this way is so that we can use any helper functions we'd need for business logic, in our case auth.

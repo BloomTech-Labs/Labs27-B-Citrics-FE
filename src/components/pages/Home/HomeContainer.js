@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 import SearchBar from './SearchBar/searchbar';
-
 // Ant Design Imports
 import 'antd/dist/antd.css';
 import { Layout, Input, Button } from 'antd';
@@ -12,7 +11,7 @@ import '../../../styles/home.css';
 import RenderHomePage from './RenderHomePage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function HomeContainer({ LoadingComponent }) {
+function HomeContainer(props) {
   const { authState, authService } = useOktaAuth();
   const [userInfo, setUserInfo] = useState(null);
   // eslint-disable-next-line
@@ -56,4 +55,8 @@ function HomeContainer({ LoadingComponent }) {
   );
 }
 
-export default HomeContainer;
+const mapStateToProps = state => {
+  return { state };
+};
+
+export default connect(mapStateToProps, {})(HomeContainer);
