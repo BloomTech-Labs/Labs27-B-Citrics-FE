@@ -1,37 +1,150 @@
-import React, { useEffect } from 'react';
-import { GoogleMap, withScriptjs, withGoogleMap } from 'react-google-maps';
+import React, { useEffect, useState } from 'react';
+import mapStyles from './mapStyles';
+import SearchBar from './searchbar';
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+} from '@react-google-maps/api';
+import { useSelector } from 'react-redux';
+import { Button, Drawer } from 'antd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CitySelect from './CitySelect';
+import { useHistory } from 'react-router-dom';
 
-let api_key = 'AIzaSyBjf47vw8-reZPcmiv3opmxVgJaFmTpbAE';
+const libraries = ['places'];
 
-function Mapservice() {
-  let map;
+const mapContainerStyle = {
+  width: '99vw',
+  height: '90vh',
+};
 
-  function Map() {
-    return (
-      <GoogleMap
-        defaultZoom={10}
-        defaultCenter={{ lat: 41.4925, lng: 99.9018 }}
-      />
-    );
-  }
+const center = {
+  lat: 39.106667,
+  lng: -94.676392,
+};
 
-  const WrappedMap = withScriptjs(withGoogleMap(Map));
+const options = {
+  styles: mapStyles,
+  disableDefaultUI: true,
+  zoomControl: true,
+};
+
+// COMPONENT
+const MapService = props => {
+  // REDUX STATE
+  const markers = useSelector(state => state.cityReducer.markers);
+  const compareList = useSelector(state => state.userReducer.comparison);
+  console.log(compareList);
+
+  const history = useHistory();
+
+  const [selected, setSelected] = useState(null);
+  const [visible, setVisible] = useState(false);
+
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
+    libraries,
+  });
+
+  const panTo = React.useCallback(({ lat, lng }) => {
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(12);
+  }, []);
+
+  const mapRef = React.useRef();
+  const onMapLoad = React.useCallback(map => {
+    mapRef.current = map;
+  }, []);
+
+  // UseEffect to check if a new search has been made
+  useEffect(() => {
+    setSelected(markers[markers.length - 1]);
+  }, [markers]);
+
+  if (loadError) return 'Error Loading Maps';
+  if (!isLoaded) return 'Loading...';
 
   return (
     <>
-      <div
-        id="map"
-        style={{ border: '1px solid black', height: '600px', width: '600px' }}
-      >
-        <WrappedMap
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${api_key}`}
-          loadingElement={<div style={{ height: '100%' }} />}
-          containerElement={<div style={{ height: '100%' }} />}
-          mapElement={<div style={{ height: '100%' }} />}
-        />
+      <div className="search-bar-container" style={{ width: '100%' }}>
+        <SearchBar panToCenter={panTo} width={800} />
+      </div>
+      <div id="map">
+        <Button
+          onClick={() => setVisible(!visible)}
+          className="btn open-drawer"
+        >
+          <FontAwesomeIcon icon={['fas', 'list-ul']}></FontAwesomeIcon>
+        </Button>
+        <Drawer
+          width={500}
+          mask={false}
+          placement="left"
+          closable={true}
+          onClose={() => setVisible(false)}
+          visible={visible}
+        >
+          <CitySelect
+            list={markers}
+            selected={selected}
+            setSelected={setSelected}
+          />
+        </Drawer>
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          zoom={5}
+          center={center}
+          options={options}
+          onLoad={onMapLoad}
+        >
+          {markers.map(marker => (
+            <Marker
+              key={`${marker.lat}-${marker.lng}`}
+              position={{ lat: marker.lat, lng: marker.lng }}
+              onClick={e => setSelected(marker)}
+              icon={{
+                // Need to tweak the URL to get pointer.svg to work, this one is temporary
+                url: `https://www.flaticon.com/svg/static/icons/svg/1181/1181732.svg`,
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(15, 15),
+                scaledSize: new window.google.maps.Size(50, 50),
+              }}
+            />
+          ))}
+
+          {selected ? (
+            <InfoWindow
+              position={{ lat: selected.lat, lng: selected.lng }}
+              onCloseClick={() => setSelected(null)}
+            >
+              <div className="pointer-info">
+                <h2>{selected.cityName ? selected.cityName : 'Error'}</h2>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Debitis repellendus recusandae nisi voluptatem non accusantium
+                  esse dolorem consequatur qui molestiae.
+                </p>
+                <Button
+                  onClick={() => {
+                    markers.length > 1
+                      ? history.push('/compare')
+                      : setVisible(true);
+                  }}
+                  className="btn"
+                  type="primary"
+                  size="large"
+                >
+                  {markers.length > 1 ? 'Compare' : 'View'}
+                </Button>
+              </div>
+            </InfoWindow>
+          ) : null}
+        </GoogleMap>
       </div>
     </>
   );
-}
+};
 
-export default Mapservice;
+export default MapService;

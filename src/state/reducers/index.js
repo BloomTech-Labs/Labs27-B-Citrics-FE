@@ -1,3 +1,10 @@
-// import all of your reducers into this file, and export them back out.
-// This allows for the simplification of flow when importing reducers into your actions throughout your app.
-import searchedCitiesReducer from './searched-cities-reducers';
+
+import { combineReducers } from 'redux';
+import { savedCityReducer as cityReducer } from './searched-cities-reducers.js';
+import { userReducer } from './userReducer';
+
+export default combineReducers({
+  cityReducer,
+  userReducer,
+});
+

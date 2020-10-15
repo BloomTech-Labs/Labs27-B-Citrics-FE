@@ -24,9 +24,5 @@ export const addCity = input => {
   };
 };
 
-export const removeCity = input => {
-  return dispatch => {
-    console.log('remove city request', input);
-    dispatch({ type: 'REMOVE_CITY', payload: input });
   };
 };
