@@ -33,27 +33,7 @@ import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
 import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
-import { LoadingComponent } from './components/common';
-import MapService from './components/pages/Home/SearchBar/mapservice';
-import SearchBar from './components/pages/Home/SearchBar/searchbar';
-import FooterContents from './components/footer';
-
-import Compare from './components/comparePage';
-
-import Profile from './components/pages/Home/Profile';
-import Compare from './components/comparePage';
-const { Header, Footer } = Layout;
-
-const store = createStore(reducers, applyMiddleware(thunk, logger));
-
-ReactDOM.render(
-  <Router>
-    <Provider store={store}>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </Provider>
-  </Router>,
+import { LoadingComponent } from './components/common'
   document.getElementById('root')
 );
 

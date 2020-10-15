@@ -2,21 +2,12 @@
 //the state will remember up to 3 cities for comparison, initializing at either empty or ask for a location and use nearest city (to be implemented)
 
 export const initialState = {
-  cities: {
-    city1: {},
-    city2: {},
-    city3: {},
-  },
-  cityinfo: {
-    city1: {},
-    city2: {},
-    city3: {},
-  },
+  cities: ['san diego', 'san francisco', 'norfolk', 'madison'],
+  cityinfo: [],
   isFetching: false,
   markers: [],
 };
 
-export const savedCityReducer = (state = initialState, action) => {
   switch (action.type) {
     default:
       return state;
@@ -38,6 +29,7 @@ export const savedCityReducer = (state = initialState, action) => {
         isFetching: true,
       };
     case 'FETCH_SUCCESS': //info from BE grabbed, saved in state
+      //axios call goes here
       return {
         ...state,
         isFetching: false,
@@ -48,14 +40,26 @@ export const savedCityReducer = (state = initialState, action) => {
         ...state,
         isFetching: false,
       };
-    case 'SAVE_CITY': //takes an input of city 1-3 and saves the city to the save spot
+    case 'SAVE_CITY': //add cities to the array of cities to be compared
+      let newList = state.cities;
+      newList.append(action.payload.city);
+
       return {
         ...state,
-        cities: {
-          ...state.cities, //the input requires city 1-3 to be designated, then the name of the city as the value
-          // [action.payload.city]: action.payload.value,
-        },
-        //now to get the city info
+        cities: newList,
+      };
+    case 'REMOVE_CITY':
+      let firstHalf = state.cities;
+      let secondHalf = state.cities;
+      firstHalf.slice(0, action.payload.saveID - 1); //takes in a cityID which is the array index of the city. slices it out
+      secondHalf.slice(action.payload.saveID); //slicing starts at deleted city
+      newList = firstHalf.concat(secondHalf); //combines each half of the list using concatenating
+
+      return {
+        ...state,
+        cities: newList,
       };
   }
 };
+
+export default cityReducer;
