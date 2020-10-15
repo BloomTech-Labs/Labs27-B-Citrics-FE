@@ -1,10 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Carousel } from 'antd';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 const cityImage = "https://images.unsplash.com/photo-1498036882173-b41c28a8ba34?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80";
 
 const CitySelect = props => {
+    const history = useHistory();
     return (
         <div className="city-select">
             <div className="compare-list">
@@ -27,7 +29,10 @@ const CitySelect = props => {
                     </>
                     : null}
                 {props.list.length > 1 &&
-                    <Button className="btn compare">View Comparison</Button>}
+                    <Button
+                        to="/compare"
+                        onClick={() => history.push('/compare')}
+                        className="btn compare">View Comparison</Button>}
             </div>
             <div className="city-info">
                 {props.list.length !== 0 && props.selected

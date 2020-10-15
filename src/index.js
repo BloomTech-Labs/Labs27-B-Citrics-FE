@@ -41,6 +41,7 @@ import FooterContents from './components/footer';
 import Compare from './components/comparePage';
 
 import Profile from './components/pages/Home/Profile';
+import Compare from './components/comparePage';
 const { Header, Footer } = Layout;
 
 const store = createStore(reducers, applyMiddleware(thunk, logger));
