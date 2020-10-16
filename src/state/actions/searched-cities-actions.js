@@ -24,5 +24,9 @@ export const addCity = input => {
   };
 };
 
+export const addMarker = ({ lat, lng, cityName }) => {
+  return dispatch => {
+    console.log(`City Marked: lat: ${lat}, lng: ${lng}, cityName: ${cityName}`);
+    dispatch({ type: 'SAVE_MARKER', payload: { lat, lng, cityName } });
   };
 };
