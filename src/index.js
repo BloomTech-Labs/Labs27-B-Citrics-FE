@@ -33,9 +33,27 @@ import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
 import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
-import { LoadingComponent } from './components/common'
-  document.getElementById('root')
-);
+
+import { LoadingComponent } from './components/common';
+import MapService from './components/pages/Home/SearchBar/mapservice';
+import SearchBar from './components/pages/Home/SearchBar/searchbar';
+import FooterContents from './components/footer';
+
+import Profile from './components/pages/Home/Profile';
+import Compare from './components/comparePage';
+const { Header, Footer } = Layout;
+
+const store = createStore(reducers, applyMiddleware(thunk, logger));
+
+ReactDOM.render(
+  <Router>
+    <Provider store={store}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </Provider>
+  </Router>,
+
 
 function App() {
   // The reason to declare App this way is so that we can use any helper functions we'd need for business logic, in our case auth.
@@ -62,7 +80,7 @@ function App() {
           justifyContent: 'flex-end',
         }}
       >
-        <Link to="/map">
+        <Link to="/">
           <FontAwesomeIcon icon={['fas', 'search']}></FontAwesomeIcon>
           Search
         </Link>
@@ -93,10 +111,9 @@ function App() {
         <Route path="/login" component={LoginPage} />
         <Route path="/implicit/callback" component={LoginCallback} />
         {/* any of the routes you need secured should be registered as SecureRoutes */}
-        <Route path="/" exact component={HomePage} />
-        <Route path="/map" component={MapService} />
         <Route path="/search" component={SearchBar} />
         <Route path="/compare" component={Compare} />
+        <Route path="/" component={MapService} />
       </Switch>
       <Footer
         style={{

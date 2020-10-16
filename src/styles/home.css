@@ -44,6 +44,15 @@ a:hover {
   justify-content: center;
 }
 
+.city-container {
+  border: 1px solid black;
+  display: flex;
+  max-height: 250px;
+}
+
+.city-img {
+  object-fit: cover;
+}
 .btn {
   background: #e8833a;
   color: white;
@@ -88,7 +97,7 @@ a:hover {
 }
 
 .compare-list {
-    text-align: center
+  text-align: center;
 }
 
 .city-select {
@@ -105,20 +114,15 @@ a:hover {
   margin-top: 20px;
 }
 
-
-
-
 /* ANT DESIGN CAROUSEL OVERRIDE */
 .ant-carousel .slick-dots li button {
-    background: #513ae8;
-    opacity: 0.4;
-    height: 10px;
-    margin-top: 30px;
+  background: #513ae8;
+  opacity: 0.4;
+  height: 10px;
+  margin-top: 30px;
 }
 
 .ant-carousel .slick-dots li.slick-active button {
-    opacity: 1;
-    background: #513ae8;
+  opacity: 1;
+  background: #513ae8;
 }
-
-
