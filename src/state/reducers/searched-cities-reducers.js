@@ -8,7 +8,6 @@ export const initialState = {
   markers: [],
 };
 
-export const cityReducer = (state = initialState, action) => {
   switch (action.type) {
     default:
       return state;

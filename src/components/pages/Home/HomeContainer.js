@@ -17,6 +17,9 @@ function HomeContainer(props) {
   // eslint-disable-next-line
   const [memoAuthService] = useMemo(() => [authService], []);
 
+  // Ant Design Components
+  const { Sider, Content } = Layout;
+
   useEffect(() => {
     let isSubscribed = true;
 
@@ -52,4 +55,8 @@ function HomeContainer(props) {
   );
 }
 
-export default HomeContainer;
+const mapStateToProps = state => {
+  return { state };
+};
+
+export default connect(mapStateToProps, {})(HomeContainer);
