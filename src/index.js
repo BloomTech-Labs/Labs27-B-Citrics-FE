@@ -53,7 +53,8 @@ ReactDOM.render(
       </React.StrictMode>
     </Provider>
   </Router>,
-
+  document.getElementById('root')
+);
 
 function App() {
   // The reason to declare App this way is so that we can use any helper functions we'd need for business logic, in our case auth.
