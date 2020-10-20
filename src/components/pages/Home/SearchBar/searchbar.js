@@ -1,12 +1,14 @@
 import { AutoComplete, Input } from 'antd';
 import 'antd/dist/antd.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from 'use-places-autocomplete';
 import { useDispatch } from 'react-redux';
 import { addMarker } from '../../../../state/actions/searched-cities-actions';
+import CityData from '../../../../data/cities';
+import { useState } from 'react';
 
 const { Option } = AutoComplete;
 
@@ -60,19 +62,28 @@ function SearchBar(props) {
     setValue(e.target.value, true);
   };
 
+  let FullCityData = [];
+  let Cities = Object.keys(CityData);
+  for (let i = 0; i < Cities.length; i++) {
+    FullCityData.push(Cities[i]);
+  }
+  // console.log(FullCityData);
+
   return (
     <div className="search-bar">
       <AutoComplete
         style={inputStyles}
         onSelect={onSelectHandler}
         disabled={!ready}
+        filterOption={true}
       >
-        {status === 'OK' &&
-          data.map(({ id, description }) => (
-            <Option key={id} value={description}>
-              {description}
+        {FullCityData.map((city, id) => {
+          return (
+            <Option key={id} value={city}>
+              {city}
             </Option>
-          ))}
+          );
+        })}
 
         <Input.Search
           size="large"
