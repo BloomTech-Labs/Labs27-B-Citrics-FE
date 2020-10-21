@@ -1,13 +1,27 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Alert, Button, Carousel } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 const cityImage = "https://images.unsplash.com/photo-1498036882173-b41c28a8ba34?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80";
 
 const CitySelect = props => {
     const history = useHistory();
-    const compareList = props.list;
+    const cityInfo = useSelector(state => state.cityReducer.cityInfo);
+
+    let selectedInfoArrRef = useRef([]);
+
+    useEffect(() => {
+        selectedInfoArrRef.current = cityInfo.filter(city => {
+            return city.city === props.selected.cityName;
+        });
+    }, [cityInfo, props.list, props.selected]);
+
+    const selectedInfo = selectedInfoArrRef.current[0];
+
+    console.log(cityInfo);
+    console.log(selectedInfoArrRef.current);
 
     return (
         <div className="city-select">
@@ -16,15 +30,13 @@ const CitySelect = props => {
                     ? <>
                         <h3>Current List</h3>
                         <Carousel
-                            afterChange={() => console.log("Changed")}
                             dotPosition="bottom"
                             className="carousel"
                         >
-                            {props.list.map(item => (
+                            {props.list.map((item, i) => (
                                 <div
                                     className="city-list-item"
                                     onClick={() => props.setSelected(item)}
-                                    style={{ backgroundImage: `url(${cityImage})` }}
                                 >{item.cityName}</div>
                             ))}
                         </Carousel>
@@ -40,18 +52,12 @@ const CitySelect = props => {
                 {props.list.length !== 0 && props.selected
                     ? <> <h2>{props.selected.cityName}</h2>
                         <img
-                            src={cityImage}
+                            src={selectedInfo.wiki_img_url}
                             alt="City Banner"
                             className="city-select-banner"
+                            onError={cityImage}
                         />
-                        <p>
-                            {/* 
-                            Population
-                            WebsiteURL
-                            Rent
-                            HouseholdIncome
-                             */}
-                        </p>
+
                     </>
                     : <div style={{
                         textAlign: 'center',

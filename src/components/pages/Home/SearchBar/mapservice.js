@@ -57,13 +57,9 @@ const MapService = props => {
   }
 
   // Load API Data into state
-  const cityInfo = useSelector(state => state.cityReducer.cityInfo);
-
-  console.log(cityInfo);
-
   const CityId = markers.map(city => {
-    let fullName = `${city.cityName}, ${city.stateName}`;
-    return CityData[fullName];
+    console.log(CityData[city.address]);
+    return CityData[city.address];
   });
 
   useEffect(() => {
@@ -121,8 +117,6 @@ const MapService = props => {
 
   if (loadError) return 'Error Loading Maps';
   if (!isLoaded) return 'Loading...';
-
-  console.log(alert);
 
   return (
     <>

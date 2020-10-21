@@ -24,14 +24,14 @@ export const addCity = input => {
   };
 };
 
-export const addMarker = ({ lat, lng, cityName, stateName }) => {
+export const addMarker = ({ lat, lng, cityName, stateName, address }) => {
   return dispatch => {
     console.log(
       `City Marked: lat: ${lat}, lng: ${lng}, cityName: ${cityName}, stateName: ${stateName}`
     );
     dispatch({
       type: 'SAVE_MARKER',
-      payload: { lat, lng, cityName, stateName },
+      payload: { lat, lng, cityName, stateName, address },
     });
   };
 };
