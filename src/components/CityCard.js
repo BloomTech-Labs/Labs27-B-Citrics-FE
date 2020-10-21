@@ -44,7 +44,15 @@ const CityCard = props => {
             <p>
               <FontAwesomeIcon icon={['fas', 'laptop']}></FontAwesomeIcon>
               City Website:
-              <a href={`${props.website}`} target="_blank">
+              <a
+                href={
+                  props.website.startsWith('http')
+                    ? `${props.website}`
+                    : `http://www.${props.website}`
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {props.website}
               </a>
             </p>
