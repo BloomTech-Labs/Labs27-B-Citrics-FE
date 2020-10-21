@@ -86,15 +86,7 @@ function Compare(props) {
             backgroundColor: 'grey',
           }}
         >
-          {/* {cities.map(city => ( */}
-          <MetricCard
-          // name={city.name}
-          // pop={city.population}
-          // crime={city.crime}
-          // rating={city.rating}
-          // pass in available metrics through props
-          />
-          {/* ))} */}
+          {cities.length !== 0 && <MetricCard data={cities} />}
         </Row>
       </Col>
     </>
