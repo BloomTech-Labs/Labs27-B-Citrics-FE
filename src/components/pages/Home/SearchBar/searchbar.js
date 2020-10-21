@@ -78,6 +78,7 @@ function SearchBar(props) {
       <AutoComplete
         style={inputStyles}
         onSelect={onSelectHandler}
+        placeholder="Search for a city..."
         disabled={!ready}
         filterOption={true}
       >
@@ -89,12 +90,7 @@ function SearchBar(props) {
           );
         })}
 
-        <Input.Search
-          size="large"
-          value={value}
-          placeholder="Search for a city..."
-          onChange={onChangeHandler}
-        />
+        <Input.Search size="large" value={value} onChange={onChangeHandler} />
       </AutoComplete>
     </div>
   );
