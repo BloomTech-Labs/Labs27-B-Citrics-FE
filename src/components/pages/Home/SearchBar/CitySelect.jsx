@@ -60,11 +60,11 @@ const CitySelect = props => {
                             onError={cityImage}
                         />
                         <h3>About</h3>
-                        <p>Time-Zone: {selectedInfo[0].timezone}</p>
-                        <p>Population: {selectedInfo[0].pop}</p>
-                        <p>Counties: {selectedInfo[0].counties}</p>
-                        <p>Density: {selectedInfo[0].density_mi_sq} miles, {selectedInfo[0].density_km_sq} kilometers</p>
-                        <p>ACA Status: {selectedInfo[0].ACA_status}</p>
+                        <p><strong>Time-Zone</strong>: {selectedInfo[0].timezone}</p>
+                        <p><strong>Population</strong>: {selectedInfo[0].pop}</p>
+                        <p><strong>Counties</strong>: {selectedInfo[0].counties}</p>
+                        <p><strong>Density</strong>: {selectedInfo[0].density_mi_sq} miles, {selectedInfo[0].density_km_sq} kilometers</p>
+                        <p><strong>ACA Status</strong>: {selectedInfo[0].ACA_status}</p>
                     </>
                     : <div style={{
                         textAlign: 'center',
