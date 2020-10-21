@@ -6,6 +6,7 @@ export const initialState = {
   cityInfo: [],
   isFetching: false,
   markers: [],
+  selected: {},
   alert: false,
 };
 
@@ -14,7 +15,6 @@ export const cityReducer = (state = initialState, action) => {
     default:
       return state;
     case 'SAVE_MARKER':
-      console.log(action.payload);
       return {
         ...state,
         markers: [...state.markers, action.payload],
@@ -42,6 +42,13 @@ export const cityReducer = (state = initialState, action) => {
       return {
         ...state,
         cities: newList,
+      };
+    case 'SET_SELECTED_DATA':
+      return {
+        ...state,
+        selected: state.cityInfo.filter(city => {
+          return city.city === action.payload;
+        }),
       };
     case 'REMOVE_CITY':
       let firstHalf = state.cities;

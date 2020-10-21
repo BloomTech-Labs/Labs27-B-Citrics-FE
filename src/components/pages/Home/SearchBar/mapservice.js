@@ -16,6 +16,7 @@ import { useHistory } from 'react-router-dom';
 import {
   RemoveFirstMarker,
   RemoveAlerts,
+  setSelectedData,
 } from '../../../../state/actions/searched-cities-actions';
 import axios from 'axios';
 import CityData from '../../../../data/cities';
@@ -44,6 +45,7 @@ const MapService = props => {
   // REDUX STATE
   const markers = useSelector(state => state.cityReducer.markers);
   const alert = useSelector(state => state.cityReducer.alert);
+  const selectedInfo = useSelector(state => state.cityReducer.selected);
   const dispatch = useDispatch();
 
   const history = useHistory();
@@ -58,7 +60,6 @@ const MapService = props => {
 
   // Load API Data into state
   const CityId = markers.map(city => {
-    console.log(CityData[city.address]);
     return CityData[city.address];
   });
 
@@ -68,32 +69,32 @@ const MapService = props => {
     let third = `https://labs27-b-citrics-api.herokuapp.com/cities/city/id/${CityId[2]}`;
 
     if (markers.length === 3) {
-      console.log(3);
       axios
         .all([axios.get(first), axios.get(second), axios.get(third)])
         .then(
           axios.spread((first, second, third) => {
             dispatch(SaveCity([first.data, second.data, third.data]));
+            dispatch(setSelectedData(markers[markers.length - 1].cityName));
           })
         )
         .catch(err => console.log(err));
     } else if (markers.length === 2) {
-      console.log(2);
       axios
         .all([axios.get(first), axios.get(second)])
         .then(
           axios.spread((first, second) => {
             dispatch(SaveCity([first.data, second.data]));
+            dispatch(setSelectedData(markers[markers.length - 1].cityName));
           })
         )
         .catch(err => console.log(err));
     } else if (markers.length === 1) {
-      console.log(1);
       axios.get(first).then(res => {
         dispatch(SaveCity([res.data]));
+        dispatch(setSelectedData(markers[markers.length - 1].cityName));
       });
     }
-  }, [markers]);
+  }, [CityId, dispatch, markers]);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
@@ -113,7 +114,13 @@ const MapService = props => {
   // UseEffect to check if a new search has been made
   useEffect(() => {
     setSelected(markers[markers.length - 1]);
-  }, [markers]);
+
+    setTimeout(() => {
+      if (markers.length > 0) {
+        setVisible(true);
+      }
+    }, 500);
+  }, [dispatch, markers]);
 
   if (loadError) return 'Error Loading Maps';
   if (!isLoaded) return 'Loading...';
@@ -180,7 +187,7 @@ const MapService = props => {
             />
           ))}
 
-          {selected ? (
+          {selected && selectedInfo[0] ? (
             <InfoWindow
               position={{
                 lat: selected.lat,
@@ -190,11 +197,26 @@ const MapService = props => {
             >
               <div className="pointer-info">
                 <h2>{selected.cityName ? selected.cityName : 'Error'}</h2>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Debitis repellendus recusandae nisi voluptatem non accusantium
-                  esse dolorem consequatur qui molestiae. teastesataewsta
-                </p>
+                <FontAwesomeIcon icon={['fas', 'laptop']}></FontAwesomeIcon>
+                <a
+                  className="info-window-a"
+                  href={
+                    selectedInfo[0].website.startsWith('http://www.') ||
+                    selectedInfo[0].website.startsWith('http') ||
+                    selectedInfo[0].website.startsWith('https://www.')
+                      ? `${selectedInfo[0].website}`
+                      : `http://www.${selectedInfo[0].website}`
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Website
+                </a>
+                <img
+                  src={selectedInfo[0].wiki_img_url}
+                  alt="city banner"
+                  className="city-select-banner"
+                />
                 <Button
                   onClick={() => {
                     markers.length > 1

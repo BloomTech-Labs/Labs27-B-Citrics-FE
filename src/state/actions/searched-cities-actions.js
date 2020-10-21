@@ -42,6 +42,10 @@ export const SaveCity = cities => {
   };
 };
 
+export const setSelectedData = selected => dispatch => {
+  dispatch({ type: 'SET_SELECTED_DATA', payload: selected });
+};
+
 export const RemoveFirstMarker = () => dispatch => {
   console.log('Only 3 cities may be compared');
   dispatch({ type: 'REMOVE_FIRST', payload: {} });
