@@ -74,7 +74,13 @@ const MapService = props => {
         .then(
           axios.spread((first, second, third) => {
             dispatch(SaveCity([first.data, second.data, third.data]));
-            dispatch(setSelectedData(markers[markers.length - 1].cityName));
+            dispatch(
+              setSelectedData(
+                selected
+                  ? selected.cityName
+                  : markers[markers.length - 1].cityName
+              )
+            );
           })
         )
         .catch(err => console.log(err));
@@ -84,17 +90,27 @@ const MapService = props => {
         .then(
           axios.spread((first, second) => {
             dispatch(SaveCity([first.data, second.data]));
-            dispatch(setSelectedData(markers[markers.length - 1].cityName));
+            dispatch(
+              setSelectedData(
+                selected
+                  ? selected.cityName
+                  : markers[markers.length - 1].cityName
+              )
+            );
           })
         )
         .catch(err => console.log(err));
     } else if (markers.length === 1) {
       axios.get(first).then(res => {
         dispatch(SaveCity([res.data]));
-        dispatch(setSelectedData(markers[markers.length - 1].cityName));
+        dispatch(
+          setSelectedData(
+            selected ? selected.cityName : markers[markers.length - 1].cityName
+          )
+        );
       });
     }
-  }, [CityId, dispatch, markers]);
+  }, [CityId, dispatch, markers, selected]);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
