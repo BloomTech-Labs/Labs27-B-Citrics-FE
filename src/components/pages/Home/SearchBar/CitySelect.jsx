@@ -1,16 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Carousel } from 'antd';
-import React from 'react';
+import { Alert, Button, Carousel } from 'antd';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const cityImage = "https://images.unsplash.com/photo-1498036882173-b41c28a8ba34?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80";
 
 const CitySelect = props => {
     const history = useHistory();
-    const compareList = useSelector(state => state.userReducer.comparison);
-    const cityMetrics = useSelector(state => state.userReducer.city_metrics);
-
 
     return (
         <div className="city-select">

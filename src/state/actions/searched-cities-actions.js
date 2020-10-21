@@ -35,3 +35,12 @@ export const addMarker = ({ lat, lng, cityName, stateName }) => {
     });
   };
 };
+
+export const RemoveFirstMarker = () => dispatch => {
+  console.log('Only 3 cities may be compared');
+  dispatch({ type: 'REMOVE_FIRST', payload: {} });
+};
+
+export const RemoveAlerts = () => dispatch => {
+  dispatch({ type: 'REMOVE_ALERT', payload: {} });
+};

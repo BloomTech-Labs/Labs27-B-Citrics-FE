@@ -7,11 +7,16 @@ import {
   Marker,
   InfoWindow,
 } from '@react-google-maps/api';
-import { useSelector } from 'react-redux';
-import { Button, Drawer } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { Alert, Button, Drawer } from 'antd';
+import 'antd/dist/antd.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CitySelect from './CitySelect';
 import { useHistory } from 'react-router-dom';
+import {
+  RemoveFirstMarker,
+  RemoveAlerts,
+} from '../../../../state/actions/searched-cities-actions';
 
 const libraries = ['places'];
 
@@ -35,13 +40,18 @@ const options = {
 const MapService = props => {
   // REDUX STATE
   const markers = useSelector(state => state.cityReducer.markers);
-  const compareList = useSelector(state => state.userReducer.comparison);
-  console.log(compareList);
+  const alert = useSelector(state => state.cityReducer.alert);
+  const dispatch = useDispatch();
 
   const history = useHistory();
 
   const [selected, setSelected] = useState(null);
   const [visible, setVisible] = useState(false);
+
+  // Manage Compare List Length
+  if (markers.length > 3) {
+    dispatch(RemoveFirstMarker());
+  }
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
@@ -66,11 +76,24 @@ const MapService = props => {
   if (loadError) return 'Error Loading Maps';
   if (!isLoaded) return 'Loading...';
 
+  console.log(alert);
+
   return (
     <>
       <div className="search-bar-container" style={{ width: '100%' }}>
         <SearchBar panToCenter={panTo} width={800} />
       </div>
+      {alert ? (
+        <div className="alert-warn">
+          <Alert
+            type="warning"
+            message="Please only select 3 cities"
+            closable={true}
+            showIcon={true}
+            onClose={() => dispatch(RemoveAlerts())}
+          />
+        </div>
+      ) : null}
       <div id="map">
         <Button
           onClick={() => setVisible(!visible)}
@@ -102,7 +125,10 @@ const MapService = props => {
           {markers.map(marker => (
             <Marker
               key={`${marker.lat}-${marker.lng}`}
-              position={{ lat: marker.lat, lng: marker.lng }}
+              position={{
+                lat: marker.lat,
+                lng: marker.lng,
+              }}
               onClick={e => setSelected(marker)}
               icon={{
                 // Need to tweak the URL to get pointer.svg to work, this one is temporary
@@ -116,7 +142,10 @@ const MapService = props => {
 
           {selected ? (
             <InfoWindow
-              position={{ lat: selected.lat, lng: selected.lng }}
+              position={{
+                lat: selected.lat,
+                lng: selected.lng,
+              }}
               onCloseClick={() => setSelected(null)}
             >
               <div className="pointer-info">

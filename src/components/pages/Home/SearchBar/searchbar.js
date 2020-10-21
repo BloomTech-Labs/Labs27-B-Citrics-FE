@@ -20,7 +20,7 @@ let inputStyles = {
 
 function SearchBar(props) {
   const dispatch = useDispatch();
-  const compareList = useSelector(state => state.userReducer.comparison);
+  const compareList = useSelector(state => state.cityReducer.markers);
 
   const {
     ready,
@@ -72,7 +72,6 @@ function SearchBar(props) {
   for (let i = 0; i < Cities.length; i++) {
     FullCityData.push(Cities[i]);
   }
-  // console.log(FullCityData);
 
   return (
     <div className="search-bar">
