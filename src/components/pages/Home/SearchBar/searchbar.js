@@ -1,6 +1,6 @@
 import { AutoComplete, Input } from 'antd';
 import 'antd/dist/antd.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -16,6 +16,7 @@ let inputStyles = {
 };
 
 function SearchBar(props) {
+  const [valueForm, setValueForm] = useState();
   const dispatch = useDispatch();
 
   const { ready, setValue, clearSuggestions } = usePlacesAutocomplete({
@@ -46,6 +47,7 @@ function SearchBar(props) {
       dispatch(addMarker(payload));
 
       if (props.panToCenter) return props.panToCenter({ lat, lng });
+      setValue('', false);
     } catch (error) {
       console.log('😱 Error: ', error);
     }
@@ -64,6 +66,7 @@ function SearchBar(props) {
         onSelect={onSelectHandler}
         placeholder="Search for a city..."
         disabled={!ready}
+        value={valueForm}
         filterOption={true}
       >
         {FullCityData.map((city, id) => {
