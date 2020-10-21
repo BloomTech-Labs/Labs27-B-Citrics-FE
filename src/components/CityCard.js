@@ -15,9 +15,9 @@ const CityCard = props => {
       <div className="search-cities" style={searchCard}>
         <Card bordered={true} style={{ width: 300 }}>
           <p>{props.name}</p>
-          <p>{props.rating}</p>
-          <p>{props.crime}</p>
           <p>{props.pop}</p>
+          <p>{props.rent}</p>
+          <p>{props.website}</p>
         </Card>
       </div>
     </>
