@@ -27,36 +27,36 @@ function Compare(props) {
     return CityData[fullName];
   });
   useEffect(() => {
-    async function fetchData() {
-      let getCity = await axios
-        .get(
-          `https://labs27-b-citrics-api.herokuapp.com/cities/city/id/${CityId[0]}`
-        )
-        .then(res => {
-          console.log(res.data);
-          setCities([...cities, res.data]);
-          console.log('1', cities);
-          return axios.get(
-            `https://labs27-b-citrics-api.herokuapp.com/cities/city/id/${CityId[1]}`
-          );
-        })
-        .then(res => {
-          setCities([...cities, res.data]);
-          console.log('2', cities);
-          if (compareList.length === 3) {
-            return axios.get(
-              `https://labs27-b-citrics-api.herokuapp.com/cities/city/id/${CityId[2]}`
-            );
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
+    let first = `https://labs27-b-citrics-api.herokuapp.com/cities/city/id/${CityId[0]}`;
 
-      return;
+    let second = `https://labs27-b-citrics-api.herokuapp.com/cities/city/id/${CityId[1]}`;
+
+    let third = `https://labs27-b-citrics-api.herokuapp.com/cities/city/id/${CityId[2]}`;
+
+    if (CityId.length === 3) {
+      console.log('yo');
+      axios
+        .all([axios.get(first), axios.get(second), axios.get(third)])
+        .then(
+          axios.spread((first, second, third) => {
+            console.log(first.data, second.data, third.data);
+            setCities([first.data, second.data, third.data]);
+          })
+        )
+        .catch(err => console.log(err));
+    } else {
+      axios
+        .all([axios.get(first), axios.get(second)])
+        .then(
+          axios.spread((first, second) => {
+            console.log(first.data, second.data);
+            setCities([first.data, second.data]);
+          })
+        )
+        .catch(err => console.log(err));
     }
-    fetchData();
   }, []);
+
   console.log(cities);
   return (
     <>
@@ -68,14 +68,14 @@ function Compare(props) {
             backgroundColor: 'grey',
           }}
         >
-          {/* {cities.map(cities => ( */}
-          <CityCard
-            name={cities.city}
-            pop={cities.pop}
-            rent={cities.rent}
-            website={cities.website}
-          />
-          {/* ))} */}
+          {cities.map(cities => (
+            <CityCard
+              name={cities.city}
+              pop={cities.pop}
+              rent={cities.rent}
+              website={cities.website}
+            />
+          ))}
         </Row>
       </Col>
       <Col>
