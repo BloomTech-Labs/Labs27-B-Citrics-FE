@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card } from 'antd';
 import DataVisualization from './DataVisualization';
 import Plot from 'react-plotly.js';
-import BarGraph from './pages/BarGraph';
+
 import { FusionTablesLayer } from 'react-google-maps';
 
 const MetricCard = props => {
@@ -187,6 +187,104 @@ const MetricCard = props => {
             showlegend: false,
           }}
         />
+        <button
+          style={{ background: '#9dc4bb' }}
+          onClick={e => {
+            e.preventDefault();
+            setcity1IH(!city1IH);
+          }}
+        >
+          Show Income History for {props.data[0].city}?
+        </button>
+        {city1IH == true && (
+          <Plot
+            data={[
+              {
+                y: Object.values(props.data[0].income_hist),
+                x: Object.keys(props.data[0].income_hist),
+                type: 'scatter',
+                mode: 'lines+markers',
+                marker: { color: 'red' },
+                name: props.data[0].city,
+                automargin: true,
+                orientation: 'v',
+              },
+            ]}
+            layout={{
+              xaxis: { title: { text: 'City' } },
+              yaxis: { tite: { text: 'Price in Dollars' } },
+              title: 'Income History',
+              showlegend: false,
+            }}
+          />
+        )}
+        {props.data.length >= 2 && (
+          <button
+            style={{ background: '#9dc4bb' }}
+            onClick={e => {
+              e.preventDefault();
+              setcity2IH(!city2IH);
+            }}
+          >
+            Show Income History for {props.data[1].city}?
+          </button>
+        )}
+        {city2IH == true && (
+          <Plot
+            data={[
+              {
+                y: Object.values(props.data[1].income_hist),
+                x: Object.keys(props.data[1].income_hist),
+                type: 'scatter',
+                mode: 'lines+markers',
+                marker: { color: 'red' },
+                name: props.data[0].city,
+                automargin: true,
+                orientation: 'v',
+              },
+            ]}
+            layout={{
+              xaxis: { title: { text: 'City' } },
+              yaxis: { tite: { text: 'Price in Dollars' } },
+              title: 'Income History',
+              showlegend: false,
+            }}
+          />
+        )}
+        {props.data.length >= 3 && (
+          <button
+            style={{ background: '#9dc4bb' }}
+            onClick={e => {
+              e.preventDefault();
+              setcity3IH(!city3IH);
+            }}
+          >
+            Show Income History for {props.data[2].city}?
+          </button>
+        )}
+        {city3IH == true && (
+          <Plot
+            data={[
+              {
+                y: Object.values(props.data[2].income_hist),
+                x: Object.keys(props.data[2].income_hist),
+                type: 'scatter',
+                mode: 'lines+markers',
+                marker: { color: 'red' },
+                name: props.data[0].city,
+                automargin: true,
+                orientation: 'v',
+              },
+            ]}
+            layout={{
+              xaxis: { title: { text: 'City' } },
+              yaxis: { tite: { text: 'Price in Dollars' } },
+              title: 'Income History',
+              showlegend: false,
+            }}
+          />
+        )}
+        <h3>Living Costs</h3>
         <Plot
           data={[
             {
