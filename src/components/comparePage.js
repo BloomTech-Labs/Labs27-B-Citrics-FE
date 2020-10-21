@@ -70,9 +70,12 @@ function Compare(props) {
         >
           {cities.map(cities => (
             <CityCard
+              wiki_img_url={cities.wiki_img_url}
               name={cities.city}
+              statename={cities.statename}
               pop={cities.pop}
               rent={cities.rent}
+              household={cities.household}
               website={cities.website}
             />
           ))}

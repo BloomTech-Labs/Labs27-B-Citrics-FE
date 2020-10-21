@@ -114,6 +114,10 @@ a:hover {
   margin-top: 20px;
 }
 
+.city-name {
+  text-align: center;
+}
+
 /* ANT DESIGN CAROUSEL OVERRIDE */
 .ant-carousel .slick-dots li button {
   background: #513ae8;

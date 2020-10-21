@@ -7,6 +7,10 @@ import {
   faCompass,
   faListUl,
   faTrash,
+  faUsers,
+  faHouseUser,
+  faLaptop,
+  faMoneyBillWave,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -16,5 +20,9 @@ library.add(
   faMapMarker,
   faCompass,
   faListUl,
-  faTrash
+  faTrash,
+  faUsers,
+  faHouseUser,
+  faLaptop,
+  faMoneyBillWave
 );
