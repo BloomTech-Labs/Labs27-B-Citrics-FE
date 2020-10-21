@@ -20,15 +20,8 @@ let inputStyles = {
 
 function SearchBar(props) {
   const dispatch = useDispatch();
-  const compareList = useSelector(state => state.cityReducer.markers);
 
-  const {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-    clearSuggestions,
-  } = usePlacesAutocomplete({
+  const { ready, setValue, clearSuggestions } = usePlacesAutocomplete({
     requestOptions: {
       types: ['(cities)'],
       componentRestrictions: { country: 'us' },
@@ -61,10 +54,6 @@ function SearchBar(props) {
     } catch (error) {
       console.log('😱 Error: ', error);
     }
-  };
-
-  const onChangeHandler = e => {
-    setValue(e.target.value, true);
   };
 
   let FullCityData = [];

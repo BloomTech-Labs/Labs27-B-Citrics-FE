@@ -3,7 +3,7 @@
 
 export const initialState = {
   cities: ['san diego', 'san francisco', 'norfolk', 'madison'],
-  cityinfo: [],
+  cityInfo: [],
   isFetching: false,
   markers: [],
   alert: false,
@@ -30,22 +30,10 @@ export const cityReducer = (state = initialState, action) => {
         ...state,
         alert: false,
       };
-    case 'FETCH_START': //when comparison data is requested, the state will now pull from the BE info for each city and save it
+    case 'SAVE_DATA':
       return {
         ...state,
-        isFetching: true,
-      };
-    case 'FETCH_SUCCESS': //info from BE grabbed, saved in state
-      //axios call goes here
-      return {
-        ...state,
-        isFetching: false,
-        cityinfo: action.payload,
-      };
-    case 'FETCH_FAILURE':
-      return {
-        ...state,
-        isFetching: false,
+        cityInfo: [...state.cityInfo, action.payload],
       };
     case 'SAVE_CITY': //add cities to the array of cities to be compared
       let newList = state.cities;
