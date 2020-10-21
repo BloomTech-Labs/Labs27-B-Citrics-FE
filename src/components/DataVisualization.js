@@ -14,7 +14,7 @@ function DataVisualization(props) {
             mode: 'lines+markers',
             marker: { color: 'red' },
           },
-          { type: 'bar', x: [1, 2, 3], y: [2, 5, 3] },
+          // { type: 'bar', x: [1, 2, 3], y: [2, 5, 3] },
         ]}
         layout={{ width: 400, height: 240, title: 'New York City' }}
       ></Plot>
