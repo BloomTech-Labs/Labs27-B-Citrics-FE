@@ -20,6 +20,10 @@ const MetricCard = props => {
   const [city1IH, setcity1IH] = useState(false);
   const [city2IH, setcity2IH] = useState(false);
   const [city3IH, setcity3IH] = useState(false);
+  //population history
+  const [city1PH, setcity1PH] = useState(false);
+  const [city2PH, setcity2PH] = useState(false);
+  const [city3PH, setcity3PH] = useState(false);
 
   console.log(props);
   // console.log("keys:", Object.keys(props.data[0].home_hist))
@@ -69,6 +73,104 @@ const MetricCard = props => {
             showlegend: false,
           }}
         />
+        <button
+          style={{ background: '#9dc4bb' }}
+          onClick={e => {
+            e.preventDefault();
+            setcity1PH(!city1PH);
+          }}
+        >
+          Show Population History for {props.data[0].city}?
+        </button>
+        {city1PH == true && (
+          <Plot
+            data={[
+              {
+                y: Object.values(props.data[0].pop_hist),
+                x: Object.keys(props.data[0].pop_hist),
+                type: 'scatter',
+                mode: 'lines+markers',
+                marker: { color: 'red' },
+                name: props.data[0].city,
+                automargin: true,
+                orientation: 'v',
+              },
+            ]}
+            layout={{
+              xaxis: { title: { text: 'City' } },
+              yaxis: { tite: { text: 'Pop.' } },
+              title: 'Population History',
+              showlegend: false,
+            }}
+          />
+        )}
+        {props.data.length >= 2 && (
+          <button
+            style={{ background: '#9dc4bb' }}
+            onClick={e => {
+              e.preventDefault();
+              setcity2PH(!city2PH);
+            }}
+          >
+            Show Population History for {props.data[1].city}?
+          </button>
+        )}
+        {city2PH == true && (
+          <Plot
+            data={[
+              {
+                y: Object.values(props.data[1].pop_hist),
+                x: Object.keys(props.data[1].pop_hist),
+                type: 'scatter',
+                mode: 'lines+markers',
+                marker: { color: 'red' },
+                name: props.data[0].city,
+                automargin: true,
+                orientation: 'v',
+              },
+            ]}
+            layout={{
+              xaxis: { title: { text: 'City' } },
+              yaxis: { tite: { text: 'Pop.' } },
+              title: 'Population History',
+              showlegend: false,
+            }}
+          />
+        )}
+        {props.data.length >= 3 && (
+          <button
+            style={{ background: '#9dc4bb' }}
+            onClick={e => {
+              e.preventDefault();
+              setcity3PH(!city3PH);
+            }}
+          >
+            Show Population History for {props.data[2].city}?
+          </button>
+        )}
+        {city3PH == true && (
+          <Plot
+            data={[
+              {
+                y: Object.values(props.data[2].pop_hist),
+                x: Object.keys(props.data[2].pop_hist),
+                type: 'scatter',
+                mode: 'lines+markers',
+                marker: { color: 'red' },
+                name: props.data[0].city,
+                automargin: true,
+                orientation: 'v',
+              },
+            ]}
+            layout={{
+              xaxis: { title: { text: 'City' } },
+              yaxis: { tite: { text: 'Pop.' } },
+              title: 'Population History',
+              showlegend: false,
+            }}
+          />
+        )}
+
         <Plot
           data={[
             {
@@ -194,14 +296,22 @@ const MetricCard = props => {
             setcity1IH(!city1IH);
           }}
         >
-          Show Income History for {props.data[0].city}?
+          Show Household Income History for {props.data[0].city}?
         </button>
         {city1IH == true && (
           <Plot
             data={[
               {
-                y: Object.values(props.data[0].income_hist),
-                x: Object.keys(props.data[0].income_hist),
+                y: Object.values(props.data[0].income_hist).filter(
+                  (element, index) => {
+                    return index % 2 === 0;
+                  }
+                ),
+                x: Object.keys(props.data[0].income_hist).filter(
+                  (element, index) => {
+                    return index % 2 === 0;
+                  }
+                ),
                 type: 'scatter',
                 mode: 'lines+markers',
                 marker: { color: 'red' },
@@ -226,15 +336,23 @@ const MetricCard = props => {
               setcity2IH(!city2IH);
             }}
           >
-            Show Income History for {props.data[1].city}?
+            Show Household Income History for {props.data[1].city}?
           </button>
         )}
         {city2IH == true && (
           <Plot
             data={[
               {
-                y: Object.values(props.data[1].income_hist),
-                x: Object.keys(props.data[1].income_hist),
+                y: Object.values(props.data[1].income_hist).filter(
+                  (element, index) => {
+                    return index % 2 === 0;
+                  }
+                ),
+                x: Object.keys(props.data[1].income_hist).filter(
+                  (element, index) => {
+                    return index % 2 === 0;
+                  }
+                ),
                 type: 'scatter',
                 mode: 'lines+markers',
                 marker: { color: 'red' },
@@ -259,15 +377,23 @@ const MetricCard = props => {
               setcity3IH(!city3IH);
             }}
           >
-            Show Income History for {props.data[2].city}?
+            Show Household Income History for {props.data[2].city}?
           </button>
         )}
         {city3IH == true && (
           <Plot
             data={[
               {
-                y: Object.values(props.data[2].income_hist),
-                x: Object.keys(props.data[2].income_hist),
+                y: Object.values(props.data[2].income_hist).filter(
+                  (element, index) => {
+                    return index % 2 === 0;
+                  }
+                ),
+                x: Object.keys(props.data[2].income_hist).filter(
+                  (element, index) => {
+                    return index % 2 === 0;
+                  }
+                ),
                 type: 'scatter',
                 mode: 'lines+markers',
                 marker: { color: 'red' },
@@ -332,7 +458,7 @@ const MetricCard = props => {
         >
           Show Housing Price History for {props.data[0].city}?
         </button>
-        {city1IH == true && (
+        {city1HH == true && (
           <Plot
             data={[
               {
@@ -365,7 +491,7 @@ const MetricCard = props => {
             Show Housing Price History for {props.data[1].city}?
           </button>
         )}
-        {city2IH == true && (
+        {city2HH == true && (
           <Plot
             data={[
               {
@@ -398,7 +524,7 @@ const MetricCard = props => {
             Show Housing Price History for {props.data[2].city}?
           </button>
         )}
-        {city3IH == true && (
+        {city3HH == true && (
           <Plot
             data={[
               {
