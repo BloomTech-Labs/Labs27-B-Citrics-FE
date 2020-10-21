@@ -46,7 +46,9 @@ const CityCard = props => {
               City Website:
               <a
                 href={
-                  props.website.startsWith('http')
+                  props.website.startsWith('http://www.') ||
+                  props.website.startsWith('http') ||
+                  props.website.startsWith('https://www.')
                     ? `${props.website}`
                     : `http://www.${props.website}`
                 }

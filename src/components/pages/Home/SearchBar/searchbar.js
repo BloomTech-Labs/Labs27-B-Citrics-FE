@@ -7,10 +7,7 @@ import usePlacesAutocomplete, {
 } from 'use-places-autocomplete';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMarker } from '../../../../state/actions/searched-cities-actions';
-import { getCityMetrics } from '../../../../state/actions/userActions';
 import CityData from '../../../../data/cities';
-import { useState } from 'react';
-import axios from 'axios';
 
 const { Option } = AutoComplete;
 
@@ -35,6 +32,7 @@ function SearchBar(props) {
   const onSelectHandler = async address => {
     setValue(address, false);
     clearSuggestions();
+    console.log(address);
 
     try {
       const results = await getGeocode({ address });
@@ -45,6 +43,7 @@ function SearchBar(props) {
         lng,
         cityName: results[0].address_components[0].long_name,
         stateName: results[0].address_components[2].long_name,
+        address,
       };
       console.log(payload.stateName);
       dispatch(addMarker(payload));
