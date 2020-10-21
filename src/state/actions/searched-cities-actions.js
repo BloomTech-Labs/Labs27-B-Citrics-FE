@@ -36,6 +36,12 @@ export const addMarker = ({ lat, lng, cityName, stateName }) => {
   };
 };
 
+export const SaveCity = cities => {
+  return dispatch => {
+    dispatch({ type: 'SAVE_DATA', payload: cities });
+  };
+};
+
 export const RemoveFirstMarker = () => dispatch => {
   console.log('Only 3 cities may be compared');
   dispatch({ type: 'REMOVE_FIRST', payload: {} });

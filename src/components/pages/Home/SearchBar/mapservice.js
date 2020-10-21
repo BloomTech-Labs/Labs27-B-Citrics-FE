@@ -17,6 +17,9 @@ import {
   RemoveFirstMarker,
   RemoveAlerts,
 } from '../../../../state/actions/searched-cities-actions';
+import axios from 'axios';
+import CityData from '../../../../data/cities';
+import { SaveCity } from '../../../../state/actions/searched-cities-actions';
 
 const libraries = ['places'];
 
@@ -52,6 +55,49 @@ const MapService = props => {
   if (markers.length > 3) {
     dispatch(RemoveFirstMarker());
   }
+
+  // Load API Data into state
+  const cityInfo = useSelector(state => state.cityReducer.cityInfo);
+
+  console.log(cityInfo);
+
+  const CityId = markers.map(city => {
+    let fullName = `${city.cityName}, ${city.stateName}`;
+    return CityData[fullName];
+  });
+
+  useEffect(() => {
+    let first = `https://labs27-b-citrics-api.herokuapp.com/cities/city/id/${CityId[0]}`;
+    let second = `https://labs27-b-citrics-api.herokuapp.com/cities/city/id/${CityId[1]}`;
+    let third = `https://labs27-b-citrics-api.herokuapp.com/cities/city/id/${CityId[2]}`;
+
+    if (markers.length === 3) {
+      console.log(3);
+      axios
+        .all([axios.get(first), axios.get(second), axios.get(third)])
+        .then(
+          axios.spread((first, second, third) => {
+            dispatch(SaveCity([first.data, second.data, third.data]));
+          })
+        )
+        .catch(err => console.log(err));
+    } else if (markers.length === 2) {
+      console.log(2);
+      axios
+        .all([axios.get(first), axios.get(second)])
+        .then(
+          axios.spread((first, second) => {
+            dispatch(SaveCity([first.data, second.data]));
+          })
+        )
+        .catch(err => console.log(err));
+    } else if (markers.length === 1) {
+      console.log(1);
+      axios.get(first).then(res => {
+        dispatch(SaveCity([res.data]));
+      });
+    }
+  }, [markers]);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,

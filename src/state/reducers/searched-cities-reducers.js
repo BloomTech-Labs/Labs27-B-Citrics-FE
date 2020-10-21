@@ -33,7 +33,7 @@ export const cityReducer = (state = initialState, action) => {
     case 'SAVE_DATA':
       return {
         ...state,
-        cityInfo: [...state.cityInfo, action.payload],
+        cityInfo: action.payload,
       };
     case 'SAVE_CITY': //add cities to the array of cities to be compared
       let newList = state.cities;

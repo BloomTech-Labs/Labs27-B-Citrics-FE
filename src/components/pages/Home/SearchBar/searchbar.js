@@ -37,7 +37,6 @@ function SearchBar(props) {
     clearSuggestions();
 
     try {
-      console.log('selected');
       const results = await getGeocode({ address });
       const { lat, lng } = await getLatLng(results[0]);
       console.log(results[0].address_components[2].long_name);
