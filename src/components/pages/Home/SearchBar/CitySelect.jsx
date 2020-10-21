@@ -1,12 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Carousel } from 'antd';
-import React from 'react';
+import { Alert, Button, Carousel } from 'antd';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 const cityImage = "https://images.unsplash.com/photo-1498036882173-b41c28a8ba34?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80";
 
 const CitySelect = props => {
     const history = useHistory();
+
     return (
         <div className="city-select">
             <div className="compare-list">
@@ -43,20 +45,13 @@ const CitySelect = props => {
                             className="city-select-banner"
                         />
                         <p>
-                            lorem ipsum dolor sit amet
-                            Lorem ipsum dolor sit amet
-                            consectetur adipisicing elit.
-                            Quibusdam officiis libero non
-                            veniam minima animi aperiam
-                            inventore! Minima, maxime.
-                            Itaque voluptatum, eos a tenetur
-                            inventore beatae tempore unde
-                            dignissimos dolor incidunt magni
-                            cum deserunt enim dolorem ex et,
-                            facere consequatur ab quae reiciendis
-                            error quasi! Facilis distinctio odio nulla
-                            consectetur.
-                </p>
+                            {/* 
+                            Population
+                            WebsiteURL
+                            Rent
+                            HouseholdIncome
+                             */}
+                        </p>
                     </>
                     : <div style={{
                         textAlign: 'center',

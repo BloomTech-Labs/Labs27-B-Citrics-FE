@@ -5,10 +5,12 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from 'use-places-autocomplete';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addMarker } from '../../../../state/actions/searched-cities-actions';
+import { getCityMetrics } from '../../../../state/actions/userActions';
 import CityData from '../../../../data/cities';
 import { useState } from 'react';
+import axios from 'axios';
 
 const { Option } = AutoComplete;
 
@@ -18,6 +20,7 @@ let inputStyles = {
 
 function SearchBar(props) {
   const dispatch = useDispatch();
+  const compareList = useSelector(state => state.cityReducer.markers);
 
   const {
     ready,
@@ -44,12 +47,14 @@ function SearchBar(props) {
       console.log('selected');
       const results = await getGeocode({ address });
       const { lat, lng } = await getLatLng(results[0]);
-
+      console.log(results[0].address_components[2].long_name);
       const payload = {
         lat,
         lng,
         cityName: results[0].address_components[0].long_name,
+        stateName: results[0].address_components[2].long_name,
       };
+      console.log(payload.stateName);
       dispatch(addMarker(payload));
 
       if (props.panToCenter) return props.panToCenter({ lat, lng });
@@ -67,13 +72,13 @@ function SearchBar(props) {
   for (let i = 0; i < Cities.length; i++) {
     FullCityData.push(Cities[i]);
   }
-  // console.log(FullCityData);
 
   return (
     <div className="search-bar">
       <AutoComplete
         style={inputStyles}
         onSelect={onSelectHandler}
+        placeholder="Search for a city..."
         disabled={!ready}
         filterOption={true}
       >
@@ -85,13 +90,7 @@ function SearchBar(props) {
           );
         })}
 
-        <Input.Search
-          size="large"
-          value={value}
-          // enterbutton
-          placeholder="Search for a city..."
-          onChange={onChangeHandler}
-        />
+        <Input.Search size="large" value={value} onChange={onChangeHandler} />
       </AutoComplete>
     </div>
   );

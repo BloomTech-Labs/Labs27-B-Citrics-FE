@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const openDrawer = () => {
   return dispatch => {
     dispatch({ type: 'OPEN_DRAWER' });
@@ -15,3 +17,5 @@ export const addCityCompare = cityName => {
     dispatch({ type: 'ADD_CITY', payload: cityName });
   };
 };
+
+export const getCityMetrics = id => {};

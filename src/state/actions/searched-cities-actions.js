@@ -7,7 +7,7 @@ export const getCityInfo = () => {
   return dispatch => {
     dispatch({ type: 'FETCH_START' });
     axios
-      .get('insert BE endpoint here')
+      .get('https://labs27-b-citrics-api.herokuapp.com/cities/city/id/2')
       .then(res => {
         dispatch({ type: 'FETCH_SUCCESS', payload: res.data });
       })
@@ -24,9 +24,23 @@ export const addCity = input => {
   };
 };
 
-export const addMarker = ({ lat, lng, cityName }) => {
+export const addMarker = ({ lat, lng, cityName, stateName }) => {
   return dispatch => {
-    console.log(`City Marked: lat: ${lat}, lng: ${lng}, cityName: ${cityName}`);
-    dispatch({ type: 'SAVE_MARKER', payload: { lat, lng, cityName } });
+    console.log(
+      `City Marked: lat: ${lat}, lng: ${lng}, cityName: ${cityName}, stateName: ${stateName}`
+    );
+    dispatch({
+      type: 'SAVE_MARKER',
+      payload: { lat, lng, cityName, stateName },
+    });
   };
+};
+
+export const RemoveFirstMarker = () => dispatch => {
+  console.log('Only 3 cities may be compared');
+  dispatch({ type: 'REMOVE_FIRST', payload: {} });
+};
+
+export const RemoveAlerts = () => dispatch => {
+  dispatch({ type: 'REMOVE_ALERT', payload: {} });
 };
