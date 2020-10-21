@@ -114,6 +114,12 @@ const MapService = props => {
   // UseEffect to check if a new search has been made
   useEffect(() => {
     setSelected(markers[markers.length - 1]);
+
+    setTimeout(() => {
+      if (markers.length > 0) {
+        setVisible(true);
+      }
+    }, 500);
   }, [dispatch, markers]);
 
   if (loadError) return 'Error Loading Maps';
@@ -191,7 +197,9 @@ const MapService = props => {
             >
               <div className="pointer-info">
                 <h2>{selected.cityName ? selected.cityName : 'Error'}</h2>
+                <FontAwesomeIcon icon={['fas', 'laptop']}></FontAwesomeIcon>
                 <a
+                  className="info-window-a"
                   href={
                     selectedInfo[0].website.startsWith('http://www.') ||
                     selectedInfo[0].website.startsWith('http') ||
