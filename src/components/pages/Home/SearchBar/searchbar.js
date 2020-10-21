@@ -20,15 +20,8 @@ let inputStyles = {
 
 function SearchBar(props) {
   const dispatch = useDispatch();
-  const compareList = useSelector(state => state.cityReducer.markers);
 
-  const {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-    clearSuggestions,
-  } = usePlacesAutocomplete({
+  const { ready, setValue, clearSuggestions } = usePlacesAutocomplete({
     requestOptions: {
       types: ['(cities)'],
       componentRestrictions: { country: 'us' },
@@ -44,7 +37,6 @@ function SearchBar(props) {
     clearSuggestions();
 
     try {
-      console.log('selected');
       const results = await getGeocode({ address });
       const { lat, lng } = await getLatLng(results[0]);
       console.log(results[0].address_components[2].long_name);
@@ -61,10 +53,6 @@ function SearchBar(props) {
     } catch (error) {
       console.log('😱 Error: ', error);
     }
-  };
-
-  const onChangeHandler = e => {
-    setValue(e.target.value, true);
   };
 
   let FullCityData = [];
@@ -89,8 +77,6 @@ function SearchBar(props) {
             </Option>
           );
         })}
-
-        <Input.Search size="large" value={value} onChange={onChangeHandler} />
       </AutoComplete>
     </div>
   );

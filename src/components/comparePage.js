@@ -55,7 +55,7 @@ function Compare(props) {
         )
         .catch(err => console.log(err));
     }
-  }, []);
+  }, [CityId]);
 
   console.log(cities);
   return (
