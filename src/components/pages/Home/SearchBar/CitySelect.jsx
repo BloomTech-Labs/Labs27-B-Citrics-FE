@@ -1,27 +1,21 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Alert, Button, Carousel } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { setSelectedData } from '../../../../state/actions/searched-cities-actions';
 
 const cityImage = "https://images.unsplash.com/photo-1498036882173-b41c28a8ba34?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80";
 
 const CitySelect = props => {
+    const dispatch = useDispatch();
     const history = useHistory();
-    const cityInfo = useSelector(state => state.cityReducer.cityInfo);
+    const selectedInfo = useSelector(state => state.cityReducer.selected);
+    const markers = useSelector(state => state.cityReducer.markers);
 
-    let selectedInfoArrRef = useRef([]);
-
-    useEffect(() => {
-        selectedInfoArrRef.current = cityInfo.filter(city => {
-            return city.city === props.selected.cityName;
-        });
-    }, [cityInfo, props.list, props.selected]);
-
-    const selectedInfo = selectedInfoArrRef.current[0];
-
-    console.log(cityInfo);
-    console.log(selectedInfoArrRef.current);
+    if (!selectedInfo) {
+        return "Error loading data";
+    }
 
     return (
         <div className="city-select">
@@ -36,7 +30,14 @@ const CitySelect = props => {
                             {props.list.map((item, i) => (
                                 <div
                                     className="city-list-item"
-                                    onClick={() => props.setSelected(item)}
+                                    onClick={() => {
+                                        if (markers.length > 0) {
+                                            setTimeout(() => {
+                                                dispatch(setSelectedData(item.cityName));
+                                            }, 300);
+                                        }
+                                        props.setSelected(item);
+                                    }}
                                 >{item.cityName}</div>
                             ))}
                         </Carousel>
@@ -51,13 +52,16 @@ const CitySelect = props => {
             <div className="city-info">
                 {props.list.length !== 0 && props.selected
                     ? <> <h2>{props.selected.cityName}</h2>
+                        <h3>{selectedInfo[0].statename}</h3>
                         <img
-                            src={selectedInfo.wiki_img_url}
+                            src={selectedInfo[0].wiki_img_url}
                             alt="City Banner"
                             className="city-select-banner"
                             onError={cityImage}
                         />
-
+                        <h3>About</h3>
+                        <p>Time-Zone: {selectedInfo[0].timezone}</p>
+                        <p>Population: {selectedInfo[0].pop}</p>
                     </>
                     : <div style={{
                         textAlign: 'center',

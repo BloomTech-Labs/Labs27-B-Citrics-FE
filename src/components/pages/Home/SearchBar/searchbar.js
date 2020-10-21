@@ -32,12 +32,10 @@ function SearchBar(props) {
   const onSelectHandler = async address => {
     setValue(address, false);
     clearSuggestions();
-    console.log(address);
 
     try {
       const results = await getGeocode({ address });
       const { lat, lng } = await getLatLng(results[0]);
-      console.log(results[0].address_components[2].long_name);
       const payload = {
         lat,
         lng,
@@ -45,7 +43,6 @@ function SearchBar(props) {
         stateName: results[0].address_components[2].long_name,
         address,
       };
-      console.log(payload.stateName);
       dispatch(addMarker(payload));
 
       if (props.panToCenter) return props.panToCenter({ lat, lng });
