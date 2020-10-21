@@ -64,6 +64,7 @@ const CitySelect = props => {
                         <p>Population: {selectedInfo[0].pop}</p>
                         <p>Counties: {selectedInfo[0].counties}</p>
                         <p>Density: {selectedInfo[0].density_mi_sq} miles, {selectedInfo[0].density_km_sq} kilometers</p>
+                        <p>ACA Status: {selectedInfo[0].ACA_status}</p>
                     </>
                     : <div style={{
                         textAlign: 'center',

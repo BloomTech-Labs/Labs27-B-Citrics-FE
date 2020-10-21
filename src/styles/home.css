@@ -79,6 +79,17 @@ a:hover {
   margin-bottom: 10px;
   object-fit: cover;
   object-position: center;
+  object-position: top center;
+}
+
+.city-info h3 {
+  color: #e8833a;
+}
+
+.city-info p {
+  padding: none;
+  margin: none;
+  line-height: 13px;
 }
 
 .info-banner {
@@ -86,7 +97,6 @@ a:hover {
   height: 100px;
   margin-bottom: 10px;
   object-fit: cover;
-  object-position: center;
 }
 
 .search-container {
@@ -99,6 +109,7 @@ a:hover {
 .info-window-a {
   font-size: 1.3rem;
   margin-bottom: 10px;
+  text-decoration: underline;
 }
 
 .city-list-item {
