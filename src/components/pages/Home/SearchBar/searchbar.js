@@ -89,8 +89,6 @@ function SearchBar(props) {
             </Option>
           );
         })}
-
-        <Input.Search size="large" value={value} onChange={onChangeHandler} />
       </AutoComplete>
     </div>
   );
