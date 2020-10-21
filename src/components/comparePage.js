@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 //component imports
 import Footer from './footer';
 import SearchBar from './pages/Home/SearchBar/searchbar';
@@ -7,6 +7,10 @@ import MetricCard from './MetricCard';
 // antd imports
 import { Layout, Card, Button, Row, Col } from 'antd';
 import { faAlignJustify } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import CityData from '../data/cities';
+
 const { Header, Sider, Content } = Layout;
 //styles
 const styles = {
@@ -15,21 +19,45 @@ const styles = {
   alignItems: 'flex-end',
 };
 function Compare(props) {
-  const [cities, setCities] = useState();
-  const cityInfo = [
-    { cityId: 0, name: 'Nola', population: 324235, crime: 500, rating: 3 },
-    { cityId: 1, name: 'Orlando', population: 324235, crime: 500, rating: 3 },
-    // { cityId: 2, name: 'Memphis', population: 324235, crime: 500, rating: 3 },
-    // {
-    //   cityId: 3,
-    //   name: 'Baton Rouge',
-    //   population: 324235,
-    //   crime: 500,
-    //   rating: 3,
-    // },
-    // { cityId: 4, name: 'New York', population: 324235, crime: 500, rating: 3 },
-    // { cityId: 5, name: 'Mobile', population: 324235, crime: 500, rating: 3 },
-  ];
+  const compareList = useSelector(state => state.cityReducer.markers);
+  const [cities, setCities] = useState([]);
+
+  const CityId = compareList.map(city => {
+    let fullName = `${city.cityName}, ${city.stateName}`;
+    return CityData[fullName];
+  });
+  useEffect(() => {
+    async function fetchData() {
+      let getCity = await axios
+        .get(
+          `https://labs27-b-citrics-api.herokuapp.com/cities/city/id/${CityId[0]}`
+        )
+        .then(res => {
+          console.log(res.data);
+          setCities([...cities, res.data]);
+          console.log('1', cities);
+          return axios.get(
+            `https://labs27-b-citrics-api.herokuapp.com/cities/city/id/${CityId[1]}`
+          );
+        })
+        .then(res => {
+          setCities([...cities, res.data]);
+          console.log('2', cities);
+          if (compareList.length === 3) {
+            return axios.get(
+              `https://labs27-b-citrics-api.herokuapp.com/cities/city/id/${CityId[2]}`
+            );
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+
+      return;
+    }
+    fetchData();
+  }, []);
+  console.log(cities);
   return (
     <>
       <Col>
@@ -40,14 +68,14 @@ function Compare(props) {
             backgroundColor: 'grey',
           }}
         >
-          {cityInfo.map(city => (
-            <CityCard
-              name={city.name}
-              pop={city.population}
-              crime={city.crime}
-              rating={city.rating}
-            />
-          ))}
+          {/* {cities.map(cities => ( */}
+          <CityCard
+            name={cities.city}
+            pop={cities.pop}
+            rent={cities.rent}
+            website={cities.website}
+          />
+          {/* ))} */}
         </Row>
       </Col>
       <Col>
@@ -58,15 +86,15 @@ function Compare(props) {
             backgroundColor: 'grey',
           }}
         >
-          {cityInfo.map(city => (
-            <MetricCard
-              name={city.name}
-              pop={city.population}
-              crime={city.crime}
-              rating={city.rating}
-              // pass in available metrics through props
-            />
-          ))}
+          {/* {cities.map(city => ( */}
+          <MetricCard
+          // name={city.name}
+          // pop={city.population}
+          // crime={city.crime}
+          // rating={city.rating}
+          // pass in available metrics through props
+          />
+          {/* ))} */}
         </Row>
       </Col>
     </>
