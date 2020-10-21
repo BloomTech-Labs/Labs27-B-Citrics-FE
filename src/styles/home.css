@@ -82,8 +82,13 @@ a:hover {
   object-position: top center;
 }
 
+.city-info h2 {
+  font-size:1.6rem;
+}
+
 .city-info h3 {
   color: #e8833a;
+  font-size: 1.4rem;
 }
 
 .city-info p {
