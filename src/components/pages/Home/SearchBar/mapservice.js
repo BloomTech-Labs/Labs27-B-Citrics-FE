@@ -215,7 +215,7 @@ const MapService = props => {
                 <img
                   src={selectedInfo[0].wiki_img_url}
                   alt="city banner"
-                  className="city-select-banner"
+                  className="info-banner"
                 />
                 <Button
                   onClick={() => {
