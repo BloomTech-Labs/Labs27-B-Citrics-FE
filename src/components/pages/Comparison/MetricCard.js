@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import Plot from 'react-plotly.js';
 import { Tabs } from 'antd';
-const MetricCard = props => {
-  //change widths to look better
-  const metricCardLayout = {
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    textAlign: 'center',
-  };
 
+//change widths to look better
+const metricCardLayout = {
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  textAlign: 'center',
+  color: '#e8833a',
+};
+
+const MetricCard = props => {
   const { TabPane } = Tabs;
   const graphHeight = 'auto';
   const graphWidth = '45%';
