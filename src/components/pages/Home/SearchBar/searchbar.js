@@ -1,16 +1,13 @@
 import { AutoComplete, Input } from 'antd';
 import 'antd/dist/antd.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from 'use-places-autocomplete';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMarker } from '../../../../state/actions/searched-cities-actions';
-import { getCityMetrics } from '../../../../state/actions/userActions';
 import CityData from '../../../../data/cities';
-import { useState } from 'react';
-import axios from 'axios';
 
 const { Option } = AutoComplete;
 
@@ -19,16 +16,10 @@ let inputStyles = {
 };
 
 function SearchBar(props) {
+  const [valueForm, setValueForm] = useState();
   const dispatch = useDispatch();
-  const compareList = useSelector(state => state.cityReducer.markers);
 
-  const {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-    clearSuggestions,
-  } = usePlacesAutocomplete({
+  const { ready, setValue, clearSuggestions } = usePlacesAutocomplete({
     requestOptions: {
       types: ['(cities)'],
       componentRestrictions: { country: 'us' },
@@ -44,27 +35,22 @@ function SearchBar(props) {
     clearSuggestions();
 
     try {
-      console.log('selected');
       const results = await getGeocode({ address });
       const { lat, lng } = await getLatLng(results[0]);
-      console.log(results[0].address_components[2].long_name);
       const payload = {
         lat,
         lng,
         cityName: results[0].address_components[0].long_name,
         stateName: results[0].address_components[2].long_name,
+        address,
       };
-      console.log(payload.stateName);
       dispatch(addMarker(payload));
 
       if (props.panToCenter) return props.panToCenter({ lat, lng });
+      setValue('', false);
     } catch (error) {
       console.log('😱 Error: ', error);
     }
-  };
-
-  const onChangeHandler = e => {
-    setValue(e.target.value, true);
   };
 
   let FullCityData = [];
@@ -80,6 +66,7 @@ function SearchBar(props) {
         onSelect={onSelectHandler}
         placeholder="Search for a city..."
         disabled={!ready}
+        value={valueForm}
         filterOption={true}
       >
         {FullCityData.map((city, id) => {
@@ -89,8 +76,6 @@ function SearchBar(props) {
             </Option>
           );
         })}
-
-        <Input.Search size="large" value={value} onChange={onChangeHandler} />
       </AutoComplete>
     </div>
   );

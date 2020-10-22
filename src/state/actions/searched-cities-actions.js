@@ -24,16 +24,26 @@ export const addCity = input => {
   };
 };
 
-export const addMarker = ({ lat, lng, cityName, stateName }) => {
+export const addMarker = ({ lat, lng, cityName, stateName, address }) => {
   return dispatch => {
     console.log(
       `City Marked: lat: ${lat}, lng: ${lng}, cityName: ${cityName}, stateName: ${stateName}`
     );
     dispatch({
       type: 'SAVE_MARKER',
-      payload: { lat, lng, cityName, stateName },
+      payload: { lat, lng, cityName, stateName, address },
     });
   };
+};
+
+export const SaveCity = cities => {
+  return dispatch => {
+    dispatch({ type: 'SAVE_DATA', payload: cities });
+  };
+};
+
+export const setSelectedData = selected => dispatch => {
+  dispatch({ type: 'SET_SELECTED_DATA', payload: selected });
 };
 
 export const RemoveFirstMarker = () => dispatch => {

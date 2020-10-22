@@ -20,44 +20,8 @@ const styles = {
 };
 function Compare(props) {
   const compareList = useSelector(state => state.cityReducer.markers);
-  const [cities, setCities] = useState([]);
+  const cities = useSelector(state => state.cityReducer.cityInfo);
 
-  const CityId = compareList.map(city => {
-    let fullName = `${city.cityName}, ${city.stateName}`;
-    return CityData[fullName];
-  });
-  useEffect(() => {
-    let first = `https://labs27-b-citrics-api.herokuapp.com/cities/city/id/${CityId[0]}`;
-
-    let second = `https://labs27-b-citrics-api.herokuapp.com/cities/city/id/${CityId[1]}`;
-
-    let third = `https://labs27-b-citrics-api.herokuapp.com/cities/city/id/${CityId[2]}`;
-
-    if (CityId.length === 3) {
-      console.log('yo');
-      axios
-        .all([axios.get(first), axios.get(second), axios.get(third)])
-        .then(
-          axios.spread((first, second, third) => {
-            console.log(first.data, second.data, third.data);
-            setCities([first.data, second.data, third.data]);
-          })
-        )
-        .catch(err => console.log(err));
-    } else {
-      axios
-        .all([axios.get(first), axios.get(second)])
-        .then(
-          axios.spread((first, second) => {
-            console.log(first.data, second.data);
-            setCities([first.data, second.data]);
-          })
-        )
-        .catch(err => console.log(err));
-    }
-  }, []);
-
-  console.log(cities);
   return (
     <>
       <Col>
@@ -70,9 +34,12 @@ function Compare(props) {
         >
           {cities.map(cities => (
             <CityCard
+              wiki_img_url={cities.wiki_img_url}
               name={cities.city}
+              statename={cities.statename}
               pop={cities.pop}
               rent={cities.rent}
+              household={cities.household}
               website={cities.website}
             />
           ))}
