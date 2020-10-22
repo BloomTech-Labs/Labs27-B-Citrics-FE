@@ -1,34 +1,20 @@
-import { AutoComplete, Input } from 'antd';
+import { AutoComplete } from 'antd';
 import 'antd/dist/antd.css';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from 'use-places-autocomplete';
-import { useDispatch, useSelector } from 'react-redux';
-import { addMarker } from '../../../../state/actions/searched-cities-actions';
-import CityData from '../../../../data/cities';
+import { useDispatch } from 'react-redux';
+import CityData from '../../../data/cities';
+import { addMarker } from '../../../state/actions/searched-cities-actions';
 
 const { Option } = AutoComplete;
 
-let inputStyles = {
-  width: 800,
-};
-
 function SearchBar(props) {
-  const [valueForm, setValueForm] = useState();
   const dispatch = useDispatch();
 
-  const { ready, setValue, clearSuggestions } = usePlacesAutocomplete({
-    requestOptions: {
-      types: ['(cities)'],
-      componentRestrictions: { country: 'us' },
-    },
-  });
-
-  if (props.width) {
-    inputStyles = { ...inputStyles, width: props.width };
-  }
+  const { ready, setValue, clearSuggestions } = usePlacesAutocomplete();
 
   const onSelectHandler = async address => {
     setValue(address, false);
@@ -62,11 +48,10 @@ function SearchBar(props) {
   return (
     <div className="search-bar">
       <AutoComplete
-        style={inputStyles}
+        className="search-bar"
         onSelect={onSelectHandler}
         placeholder="Search for a city..."
         disabled={!ready}
-        value={valueForm}
         filterOption={true}
       >
         {FullCityData.map((city, id) => {

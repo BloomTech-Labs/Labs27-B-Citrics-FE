@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import { Card } from 'antd';
-import DataVisualization from './DataVisualization';
 import Plot from 'react-plotly.js';
-
-import { FusionTablesLayer } from 'react-google-maps';
 
 const MetricCard = props => {
   //change widths to look better
@@ -16,18 +12,16 @@ const MetricCard = props => {
   const [city1HH, setcity1HH] = useState(false);
   const [city2HH, setcity2HH] = useState(false);
   const [city3HH, setcity3HH] = useState(false);
+
   //income history
   const [city1IH, setcity1IH] = useState(false);
   const [city2IH, setcity2IH] = useState(false);
   const [city3IH, setcity3IH] = useState(false);
+
   //population history
   const [city1PH, setcity1PH] = useState(false);
   const [city2PH, setcity2PH] = useState(false);
   const [city3PH, setcity3PH] = useState(false);
-
-  console.log(props);
-  // console.log("keys:", Object.keys(props.data[0].home_hist))
-  // console.log("values:", Object.values(props.data[0].home_hist))
 
   return (
     <>
@@ -55,7 +49,7 @@ const MetricCard = props => {
               automargin: true,
               orientation: 'v',
             },
-            props.data.length == 3 && {
+            props.data.length === 3 && {
               y: [props.data[2].pop],
               x: [props.data[2].city],
               type: 'bar',
@@ -74,7 +68,7 @@ const MetricCard = props => {
           }}
         />
         <button
-          style={{ background: '#9dc4bb' }}
+          className="btn toggle"
           onClick={e => {
             e.preventDefault();
             setcity1PH(!city1PH);
@@ -82,7 +76,7 @@ const MetricCard = props => {
         >
           Show Population History for {props.data[0].city}?
         </button>
-        {city1PH == true && (
+        {city1PH === true && (
           <Plot
             data={[
               {
@@ -106,7 +100,7 @@ const MetricCard = props => {
         )}
         {props.data.length >= 2 && (
           <button
-            style={{ background: '#9dc4bb' }}
+            className="btn toggle"
             onClick={e => {
               e.preventDefault();
               setcity2PH(!city2PH);
@@ -115,7 +109,7 @@ const MetricCard = props => {
             Show Population History for {props.data[1].city}?
           </button>
         )}
-        {city2PH == true && (
+        {city2PH === true && (
           <Plot
             data={[
               {
@@ -139,7 +133,7 @@ const MetricCard = props => {
         )}
         {props.data.length >= 3 && (
           <button
-            style={{ background: '#9dc4bb' }}
+            className="btn toggle"
             onClick={e => {
               e.preventDefault();
               setcity3PH(!city3PH);
@@ -148,7 +142,7 @@ const MetricCard = props => {
             Show Population History for {props.data[2].city}?
           </button>
         )}
-        {city3PH == true && (
+        {city3PH === true && (
           <Plot
             data={[
               {
@@ -192,7 +186,7 @@ const MetricCard = props => {
               automargin: true,
               orientation: 'v',
             },
-            props.data.length == 3 && {
+            props.data.length === 3 && {
               y: [props.data[2].density_mi_sq],
               x: [props.data[2].city],
               type: 'bar',
@@ -232,7 +226,7 @@ const MetricCard = props => {
               automargin: true,
               orientation: 'v',
             },
-            props.data.length == 3 && {
+            props.data.length === 3 && {
               y: [props.data[2].individual],
               x: [props.data[2].city],
               type: 'bar',
@@ -271,7 +265,7 @@ const MetricCard = props => {
               automargin: true,
               orientation: 'v',
             },
-            props.data.length == 3 && {
+            props.data.length === 3 && {
               y: [props.data[2].household],
               x: [props.data[2].city],
               type: 'bar',
@@ -290,7 +284,7 @@ const MetricCard = props => {
           }}
         />
         <button
-          style={{ background: '#9dc4bb' }}
+          className="btn toggle"
           onClick={e => {
             e.preventDefault();
             setcity1IH(!city1IH);
@@ -298,7 +292,7 @@ const MetricCard = props => {
         >
           Show Household Income History for {props.data[0].city}?
         </button>
-        {city1IH == true && (
+        {city1IH === true && (
           <Plot
             data={[
               {
@@ -330,7 +324,7 @@ const MetricCard = props => {
         )}
         {props.data.length >= 2 && (
           <button
-            style={{ background: '#9dc4bb' }}
+            className="btn toggle"
             onClick={e => {
               e.preventDefault();
               setcity2IH(!city2IH);
@@ -339,7 +333,7 @@ const MetricCard = props => {
             Show Household Income History for {props.data[1].city}?
           </button>
         )}
-        {city2IH == true && (
+        {city2IH === true && (
           <Plot
             data={[
               {
@@ -371,7 +365,7 @@ const MetricCard = props => {
         )}
         {props.data.length >= 3 && (
           <button
-            style={{ background: '#9dc4bb' }}
+            className="btn toggle"
             onClick={e => {
               e.preventDefault();
               setcity3IH(!city3IH);
@@ -380,7 +374,7 @@ const MetricCard = props => {
             Show Household Income History for {props.data[2].city}?
           </button>
         )}
-        {city3IH == true && (
+        {city3IH === true && (
           <Plot
             data={[
               {
@@ -432,7 +426,7 @@ const MetricCard = props => {
               automargin: true,
               orientation: 'v',
             },
-            props.data.length == 3 && {
+            props.data.length === 3 && {
               y: [props.data[2].house],
               x: [props.data[2].city],
               type: 'bar',
@@ -450,7 +444,7 @@ const MetricCard = props => {
           }}
         />
         <button
-          style={{ background: '#9dc4bb' }}
+          className="btn toggle"
           onClick={e => {
             e.preventDefault();
             setcity1HH(!city1HH);
@@ -458,7 +452,7 @@ const MetricCard = props => {
         >
           Show Housing Price History for {props.data[0].city}?
         </button>
-        {city1HH == true && (
+        {city1HH === true && (
           <Plot
             data={[
               {
@@ -482,7 +476,7 @@ const MetricCard = props => {
         )}
         {props.data.length >= 2 && (
           <button
-            style={{ background: '#9dc4bb' }}
+            className="btn toggle"
             onClick={e => {
               e.preventDefault();
               setcity2HH(!city2HH);
@@ -491,7 +485,7 @@ const MetricCard = props => {
             Show Housing Price History for {props.data[1].city}?
           </button>
         )}
-        {city2HH == true && (
+        {city2HH === true && (
           <Plot
             data={[
               {
@@ -515,7 +509,7 @@ const MetricCard = props => {
         )}
         {props.data.length >= 3 && (
           <button
-            style={{ background: '#9dc4bb' }}
+            className="btn toggle"
             onClick={e => {
               e.preventDefault();
               setcity3HH(!city3HH);
@@ -524,7 +518,7 @@ const MetricCard = props => {
             Show Housing Price History for {props.data[2].city}?
           </button>
         )}
-        {city3HH == true && (
+        {city3HH === true && (
           <Plot
             data={[
               {
@@ -574,7 +568,7 @@ const MetricCard = props => {
               automargin: true,
               orientation: 'v',
             },
-            props.data.length == 3 && {
+            props.data.length === 3 && {
               y: [props.data[2].COLI],
               x: [props.data[2].city],
               type: 'bar',
@@ -613,7 +607,7 @@ const MetricCard = props => {
               automargin: true,
               orientation: 'v',
             },
-            props.data.length == 3 && {
+            props.data.length === 3 && {
               y: [props.data[2].rent],
               x: [props.data[2].city],
               type: 'bar',
