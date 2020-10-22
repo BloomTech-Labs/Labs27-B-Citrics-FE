@@ -14,6 +14,7 @@ import { Drawer, Layout } from 'antd';
 
 import './components/FontAwesomeIcons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './styles/home.css';
 
 // REDUX
 import reducers from './state/reducers/index';
@@ -62,13 +63,7 @@ function App() {
 
   return (
     <Security {...config} onAuthRequired={authHandler}>
-      <Header
-        style={{
-          background: '#B3B5B8',
-          display: 'flex',
-          justifyContent: 'flex-end',
-        }}
-      >
+      <Header className="nav" style={{ background: '#B3B5B8' }}>
         <Link to="/">
           <FontAwesomeIcon icon={['fas', 'search']}></FontAwesomeIcon>
           Search
@@ -104,17 +99,7 @@ function App() {
         <Route path="/compare" component={Compare} />
         <Route path="/" component={MapService} />
       </Switch>
-      <Footer
-        style={{
-          background: '#778899',
-          display: 'flex',
-          justifyContent: 'space-between',
-          fontSize: '1.5em',
-          position: 'relative',
-          bottom: '0',
-          width: '100%',
-        }}
-      >
+      <Footer className="footer">
         <FooterContents />
       </Footer>
     </Security>

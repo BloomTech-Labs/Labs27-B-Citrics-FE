@@ -3,10 +3,7 @@ import { Button, Carousel } from 'antd';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { setSelectedData } from '../../../../state/actions/searched-cities-actions';
-
-const cityImage =
-  'https://images.unsplash.com/photo-1498036882173-b41c28a8ba34?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80';
+import { setSelectedData } from '../../../state/actions/searched-cities-actions';
 
 const CitySelect = props => {
   const dispatch = useDispatch();
@@ -63,7 +60,6 @@ const CitySelect = props => {
               src={selectedInfo[0].wiki_img_url}
               alt="City Banner"
               className="city-select-banner"
-              onError={cityImage}
             />
             <h3>About</h3>
             <p>

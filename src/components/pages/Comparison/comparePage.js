@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../../styles/home.css';
 //component imports
 import CityCard from './CityCard';
 import MetricCard from './MetricCard';
