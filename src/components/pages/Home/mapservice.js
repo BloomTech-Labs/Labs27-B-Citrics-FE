@@ -168,34 +168,39 @@ const MapService = props => {
         </div>
       ) : null}
       <div id="map">
-        <Button
-          onClick={() => setVisible(!visible)}
-          className="btn open-drawer"
-          style={{
-            background: '#e8833a',
-            color: 'white',
-            fontWeight: 'bold',
-            position: 'absolute',
-            zIndex: 2,
-          }}
-        >
-          <FontAwesomeIcon icon={['fas', 'list-ul']}></FontAwesomeIcon>
-        </Button>
-        <Drawer
-          width={window.innerWidth > 900 ? 500 : window.innerWidth - 200}
-          className="drawer"
-          mask={false}
-          placement="left"
-          closable={true}
-          onClose={() => setVisible(false)}
-          visible={visible}
-        >
-          <CitySelect
-            list={markers}
-            selected={selected}
-            setSelected={setSelected}
-          />
-        </Drawer>
+        {window.innerWidth < 500 ? null : (
+          <>
+            <Button
+              onClick={() => setVisible(!visible)}
+              className="btn open-drawer"
+              style={{
+                background: '#e8833a',
+                color: 'white',
+                fontWeight: 'bold',
+                position: 'absolute',
+                zIndex: 2,
+              }}
+            >
+              <FontAwesomeIcon icon={['fas', 'list-ul']}></FontAwesomeIcon>
+            </Button>
+            <Drawer
+              width={window.innerWidth > 900 ? 500 : window.innerWidth - 200}
+              className="drawer"
+              mask={false}
+              placement="left"
+              closable={true}
+              onClose={() => setVisible(false)}
+              visible={visible}
+            >
+              <CitySelect
+                list={markers}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </Drawer>
+          </>
+        )}
+
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={5}

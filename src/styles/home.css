@@ -15,13 +15,14 @@
 }
 
 .footer {
-  background: #778899;
+  background: #d1d1d1 !important;
   display: flex;
   justify-content: space-between;
   font-size: 1.5em;
   position: relative;
   bottom: 0;
   width: 100%;
+  height: 100px;
 }
 
 .footer-citrics {
@@ -32,6 +33,9 @@
   display: inline-block;
   margin-right: 0px;
   margin-left: auto;
+  color: #e8833a;
+  font-weight: bold;
+  text-shadow: 0 0 1px black;
 }
 
 .search-bar {
@@ -209,6 +213,9 @@
   .search-bar {
     width: 300px;
   }
+  .alert-warn {
+    width: 300px;
+  }
 }
 
 @media (max-width: 500px) {
@@ -229,15 +236,15 @@
 
 /* ANT DESIGN CAROUSEL OVERRIDE */
 .ant-carousel .slick-dots li button {
-  background: #513ae8;
-  opacity: 0.4;
-  height: 10px;
-  margin-top: 30px;
+  background: #513ae8 !important;
+  opacity: 0.4 !important;
+  height: 10px !important;
+  margin-top: 30px !important;
 }
 
 .ant-carousel .slick-dots li.slick-active button {
-  opacity: 1;
-  background: #513ae8;
+  opacity: 1 !important;
+  background: #513ae8 !important;
 }
 
 .alert-warn {
