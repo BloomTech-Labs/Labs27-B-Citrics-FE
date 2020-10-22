@@ -54,11 +54,10 @@ const MetricCard = props => {
 
   return (
     <Tabs
-      className="search-cities"
       style={metricCardLayout}
       centered="true"
       size="large"
-      tabBarGutter="10"
+      tabBarGutter="1"
     >
       <TabPane tab="Population Statistics" key="1" style={{ width: '100%' }}>
         <h2>Population Metrics</h2>
