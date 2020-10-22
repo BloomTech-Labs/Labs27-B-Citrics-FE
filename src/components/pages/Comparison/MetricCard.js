@@ -1,32 +1,61 @@
 import React, { useState } from 'react';
 import Plot from 'react-plotly.js';
-
+import { Tabs } from 'antd';
 const MetricCard = props => {
   //change widths to look better
   const metricCardLayout = {
-    display: 'flex',
-    flexDirection: 'column',
-    width: 600,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    textAlign: 'center',
   };
-  //housing history
-  const [city1HH, setcity1HH] = useState(false);
-  const [city2HH, setcity2HH] = useState(false);
-  const [city3HH, setcity3HH] = useState(false);
 
-  //income history
-  const [city1IH, setcity1IH] = useState(false);
-  const [city2IH, setcity2IH] = useState(false);
-  const [city3IH, setcity3IH] = useState(false);
+  const { TabPane } = Tabs;
+  const graphHeight = 'auto';
+  const graphWidth = '45%';
 
-  //population history
-  const [city1PH, setcity1PH] = useState(false);
-  const [city2PH, setcity2PH] = useState(false);
-  const [city3PH, setcity3PH] = useState(false);
+  if (!props.data[1]) {
+    props.data[1] = {
+      city: '',
+      house: '',
+      home_hist: {},
+      income_hist: {},
+      individual: '',
+      house: '',
+      household: '',
+      pop: '',
+      pop_hist: {},
+      density_mi_sq: '',
+      rent: '',
+      COLI: '',
+    };
+  }
+
+  if (!props.data[2]) {
+    props.data[2] = {
+      city: '',
+      house: '',
+      home_hist: {},
+      income_hist: {},
+      individual: '',
+      house: '',
+      household: '',
+      pop: '',
+      pop_hist: {},
+      density_mi_sq: '',
+      rent: '',
+      COLI: '',
+    };
+  }
 
   return (
-    <>
-      <div className="search-cities" style={metricCardLayout}>
-        {/* //population */}
+    <Tabs
+      className="search-cities"
+      style={metricCardLayout}
+      centered="true"
+      size="large"
+      tabBarGutter="10"
+    >
+      <TabPane tab="Population Statistics" key="1" style={{ width: '100%' }}>
         <h2>Population Metrics</h2>
         <Plot
           data={[
@@ -40,7 +69,7 @@ const MetricCard = props => {
               automargin: true,
               orientation: 'v',
             },
-            props.data.length >= 2 && {
+            props.data.length > 1 && {
               y: [props.data[1].pop],
               x: [props.data[1].city],
               type: 'bar',
@@ -65,106 +94,52 @@ const MetricCard = props => {
             yaxis: { tite: { text: 'Population' } },
             title: 'Population Total',
             showlegend: false,
+            height: graphHeight,
+            width: graphWidth,
           }}
         />
-        <button
-          className="btn toggle"
-          onClick={e => {
-            e.preventDefault();
-            setcity1PH(!city1PH);
+        <Plot
+          data={[
+            {
+              y: Object.values(props.data[0].pop_hist),
+              x: Object.keys(props.data[0].pop_hist),
+              type: 'scatter',
+              mode: 'lines+markers',
+              marker: { color: 'red' },
+              name: props.data[0].city,
+              automargin: true,
+              orientation: 'v',
+            },
+            props.data.length >= 2 && {
+              y: Object.values(props.data[1].pop_hist),
+              x: Object.keys(props.data[1].pop_hist),
+              type: 'scatter',
+              mode: 'lines+markers',
+              marker: { color: 'blue' },
+              name: props.data[0].city,
+              automargin: true,
+              orientation: 'v',
+            },
+            props.data.length === 3 && {
+              y: Object.values(props.data[2].pop_hist),
+              x: Object.keys(props.data[2].pop_hist),
+              type: 'scatter',
+              mode: 'lines+markers',
+              marker: { color: 'green' },
+              name: props.data[0].city,
+              automargin: true,
+              orientation: 'v',
+            },
+          ]}
+          layout={{
+            xaxis: { title: { text: 'City' } },
+            yaxis: { tite: { text: 'Pop.' } },
+            title: 'Population History',
+            showlegend: false,
+            height: graphHeight,
+            width: graphWidth,
           }}
-        >
-          Show Population History for {props.data[0].city}?
-        </button>
-        {city1PH === true && (
-          <Plot
-            data={[
-              {
-                y: Object.values(props.data[0].pop_hist),
-                x: Object.keys(props.data[0].pop_hist),
-                type: 'scatter',
-                mode: 'lines+markers',
-                marker: { color: 'red' },
-                name: props.data[0].city,
-                automargin: true,
-                orientation: 'v',
-              },
-            ]}
-            layout={{
-              xaxis: { title: { text: 'City' } },
-              yaxis: { tite: { text: 'Pop.' } },
-              title: 'Population History',
-              showlegend: false,
-            }}
-          />
-        )}
-        {props.data.length >= 2 && (
-          <button
-            className="btn toggle"
-            onClick={e => {
-              e.preventDefault();
-              setcity2PH(!city2PH);
-            }}
-          >
-            Show Population History for {props.data[1].city}?
-          </button>
-        )}
-        {city2PH === true && (
-          <Plot
-            data={[
-              {
-                y: Object.values(props.data[1].pop_hist),
-                x: Object.keys(props.data[1].pop_hist),
-                type: 'scatter',
-                mode: 'lines+markers',
-                marker: { color: 'red' },
-                name: props.data[0].city,
-                automargin: true,
-                orientation: 'v',
-              },
-            ]}
-            layout={{
-              xaxis: { title: { text: 'City' } },
-              yaxis: { tite: { text: 'Pop.' } },
-              title: 'Population History',
-              showlegend: false,
-            }}
-          />
-        )}
-        {props.data.length >= 3 && (
-          <button
-            className="btn toggle"
-            onClick={e => {
-              e.preventDefault();
-              setcity3PH(!city3PH);
-            }}
-          >
-            Show Population History for {props.data[2].city}?
-          </button>
-        )}
-        {city3PH === true && (
-          <Plot
-            data={[
-              {
-                y: Object.values(props.data[2].pop_hist),
-                x: Object.keys(props.data[2].pop_hist),
-                type: 'scatter',
-                mode: 'lines+markers',
-                marker: { color: 'red' },
-                name: props.data[0].city,
-                automargin: true,
-                orientation: 'v',
-              },
-            ]}
-            layout={{
-              xaxis: { title: { text: 'City' } },
-              yaxis: { tite: { text: 'Pop.' } },
-              title: 'Population History',
-              showlegend: false,
-            }}
-          />
-        )}
-
+        />
         <Plot
           data={[
             {
@@ -202,8 +177,12 @@ const MetricCard = props => {
             yaxis: { tite: { text: 'Population' } },
             title: 'Population Density by Square Mile',
             showlegend: false,
+            height: graphHeight,
+            width: graphWidth,
           }}
         />
+      </TabPane>
+      <TabPane tab="Income Metrics" key="2" style={{ width: '100%' }}>
         <h2 style={{ textAlign: 'center' }}>Income</h2>
         <Plot
           data={[
@@ -242,6 +221,8 @@ const MetricCard = props => {
             yaxis: { tite: { text: 'Income in Dollars' } },
             title: 'Income by Individual',
             showlegend: false,
+            height: graphHeight,
+            width: graphWidth,
           }}
         />
         <Plot
@@ -281,130 +262,78 @@ const MetricCard = props => {
             yaxis: { tite: { text: 'Income in Dollars' } },
             title: 'Income by Household',
             showlegend: false,
+            height: graphHeight,
+            width: graphWidth,
           }}
         />
-        <button
-          className="btn toggle"
-          onClick={e => {
-            e.preventDefault();
-            setcity1IH(!city1IH);
+        <Plot
+          data={[
+            {
+              y: Object.values(props.data[0].income_hist).filter(
+                (element, index) => {
+                  return index % 2 === 0;
+                }
+              ),
+              x: Object.keys(props.data[0].income_hist).filter(
+                (element, index) => {
+                  return index % 2 === 0;
+                }
+              ),
+              type: 'scatter',
+              mode: 'lines+markers',
+              marker: { color: 'red' },
+              name: props.data[0].city,
+              automargin: true,
+              orientation: 'v',
+            },
+            {
+              y: Object.values(props.data[1].income_hist).filter(
+                (element, index) => {
+                  return index % 2 === 0;
+                }
+              ),
+              x: Object.keys(props.data[1].income_hist).filter(
+                (element, index) => {
+                  return index % 2 === 0;
+                }
+              ),
+              type: 'scatter',
+              mode: 'lines+markers',
+              marker: { color: 'blue' },
+              name: props.data[1].city,
+              automargin: true,
+              orientation: 'v',
+            },
+            {
+              y: Object.values(props.data[2].income_hist).filter(
+                (element, index) => {
+                  return index % 2 === 0;
+                }
+              ),
+              x: Object.keys(props.data[2].income_hist).filter(
+                (element, index) => {
+                  return index % 2 === 0;
+                }
+              ),
+              type: 'scatter',
+              mode: 'lines+markers',
+              marker: { color: 'green' },
+              name: props.data[2].city,
+              automargin: true,
+              orientation: 'v',
+            },
+          ]}
+          layout={{
+            xaxis: { title: { text: 'City' } },
+            yaxis: { tite: { text: 'Price in Dollars' } },
+            title: 'Income History',
+            showlegend: false,
+            height: graphHeight,
+            width: graphWidth,
           }}
-        >
-          Show Household Income History for {props.data[0].city}?
-        </button>
-        {city1IH === true && (
-          <Plot
-            data={[
-              {
-                y: Object.values(props.data[0].income_hist).filter(
-                  (element, index) => {
-                    return index % 2 === 0;
-                  }
-                ),
-                x: Object.keys(props.data[0].income_hist).filter(
-                  (element, index) => {
-                    return index % 2 === 0;
-                  }
-                ),
-                type: 'scatter',
-                mode: 'lines+markers',
-                marker: { color: 'red' },
-                name: props.data[0].city,
-                automargin: true,
-                orientation: 'v',
-              },
-            ]}
-            layout={{
-              xaxis: { title: { text: 'City' } },
-              yaxis: { tite: { text: 'Price in Dollars' } },
-              title: 'Income History',
-              showlegend: false,
-            }}
-          />
-        )}
-        {props.data.length >= 2 && (
-          <button
-            className="btn toggle"
-            onClick={e => {
-              e.preventDefault();
-              setcity2IH(!city2IH);
-            }}
-          >
-            Show Household Income History for {props.data[1].city}?
-          </button>
-        )}
-        {city2IH === true && (
-          <Plot
-            data={[
-              {
-                y: Object.values(props.data[1].income_hist).filter(
-                  (element, index) => {
-                    return index % 2 === 0;
-                  }
-                ),
-                x: Object.keys(props.data[1].income_hist).filter(
-                  (element, index) => {
-                    return index % 2 === 0;
-                  }
-                ),
-                type: 'scatter',
-                mode: 'lines+markers',
-                marker: { color: 'red' },
-                name: props.data[0].city,
-                automargin: true,
-                orientation: 'v',
-              },
-            ]}
-            layout={{
-              xaxis: { title: { text: 'City' } },
-              yaxis: { tite: { text: 'Price in Dollars' } },
-              title: 'Income History',
-              showlegend: false,
-            }}
-          />
-        )}
-        {props.data.length >= 3 && (
-          <button
-            className="btn toggle"
-            onClick={e => {
-              e.preventDefault();
-              setcity3IH(!city3IH);
-            }}
-          >
-            Show Household Income History for {props.data[2].city}?
-          </button>
-        )}
-        {city3IH === true && (
-          <Plot
-            data={[
-              {
-                y: Object.values(props.data[2].income_hist).filter(
-                  (element, index) => {
-                    return index % 2 === 0;
-                  }
-                ),
-                x: Object.keys(props.data[2].income_hist).filter(
-                  (element, index) => {
-                    return index % 2 === 0;
-                  }
-                ),
-                type: 'scatter',
-                mode: 'lines+markers',
-                marker: { color: 'red' },
-                name: props.data[0].city,
-                automargin: true,
-                orientation: 'v',
-              },
-            ]}
-            layout={{
-              xaxis: { title: { text: 'City' } },
-              yaxis: { tite: { text: 'Price in Dollars' } },
-              title: 'Income History',
-              showlegend: false,
-            }}
-          />
-        )}
-        <h3>Living Costs</h3>
+        />
+      </TabPane>
+      <TabPane tab="Living Costs" key="3" style={{ width: '100%' }}>
         <Plot
           data={[
             {
@@ -441,112 +370,52 @@ const MetricCard = props => {
             yaxis: { tite: { text: '$' } },
             title: 'Average House Pricing',
             showlegend: false,
+            height: graphHeight,
+            width: graphWidth,
           }}
         />
-        <button
-          className="btn toggle"
-          onClick={e => {
-            e.preventDefault();
-            setcity1HH(!city1HH);
+        <Plot
+          data={[
+            {
+              y: Object.values(props.data[0].home_hist),
+              x: Object.keys(props.data[0].home_hist),
+              type: 'scatter',
+              mode: 'lines+markers',
+              marker: { color: 'red' },
+              name: props.data[0].city,
+              automargin: true,
+              orientation: 'v',
+            },
+            {
+              y: Object.values(props.data[1].home_hist),
+              x: Object.keys(props.data[1].home_hist),
+              type: 'scatter',
+              mode: 'lines+markers',
+              marker: { color: 'blue' },
+              name: props.data[1].city,
+              automargin: true,
+              orientation: 'v',
+            },
+            {
+              y: Object.values(props.data[2].home_hist),
+              x: Object.keys(props.data[2].home_hist),
+              type: 'scatter',
+              mode: 'lines+markers',
+              marker: { color: 'green' },
+              name: props.data[2].city,
+              automargin: true,
+              orientation: 'v',
+            },
+          ]}
+          layout={{
+            xaxis: { title: { text: 'City' } },
+            yaxis: { tite: { text: 'Price in Dollars' } },
+            title: 'House Price History',
+            showlegend: false,
+            height: graphHeight,
+            width: graphWidth,
           }}
-        >
-          Show Housing Price History for {props.data[0].city}?
-        </button>
-        {city1HH === true && (
-          <Plot
-            data={[
-              {
-                y: Object.values(props.data[0].home_hist),
-                x: Object.keys(props.data[0].home_hist),
-                type: 'scatter',
-                mode: 'lines+markers',
-                marker: { color: 'red' },
-                name: props.data[0].city,
-                automargin: true,
-                orientation: 'v',
-              },
-            ]}
-            layout={{
-              xaxis: { title: { text: 'City' } },
-              yaxis: { tite: { text: 'Price in Dollars' } },
-              title: 'House Price History',
-              showlegend: false,
-            }}
-          />
-        )}
-        {props.data.length >= 2 && (
-          <button
-            className="btn toggle"
-            onClick={e => {
-              e.preventDefault();
-              setcity2HH(!city2HH);
-            }}
-          >
-            Show Housing Price History for {props.data[1].city}?
-          </button>
-        )}
-        {city2HH === true && (
-          <Plot
-            data={[
-              {
-                y: Object.values(props.data[1].home_hist),
-                x: Object.keys(props.data[1].home_hist),
-                type: 'scatter',
-                mode: 'lines+markers',
-                marker: { color: 'red' },
-                name: props.data[0].city,
-                automargin: true,
-                orientation: 'v',
-              },
-            ]}
-            layout={{
-              xaxis: { title: { text: 'City' } },
-              yaxis: { tite: { text: 'Price in Dollars' } },
-              title: 'House Price History',
-              showlegend: false,
-            }}
-          />
-        )}
-        {props.data.length >= 3 && (
-          <button
-            className="btn toggle"
-            onClick={e => {
-              e.preventDefault();
-              setcity3HH(!city3HH);
-            }}
-          >
-            Show Housing Price History for {props.data[2].city}?
-          </button>
-        )}
-        {city3HH === true && (
-          <Plot
-            data={[
-              {
-                y: Object.values(props.data[2].home_hist),
-                x: Object.keys(props.data[2].home_hist),
-                type: 'scatter',
-                mode: 'lines+markers',
-                marker: { color: 'red' },
-                name: props.data[0].city,
-                automargin: true,
-                orientation: 'v',
-              },
-            ]}
-            layout={{
-              xaxis: { title: { text: 'City' } },
-              yaxis: { tite: { text: 'Price in Dollars' } },
-              title: 'House Price History',
-              showlegend: false,
-            }}
-          />
-        )}
-        <h3>Cost of Living Index</h3>
-        <p>
-          This index is retreived from{' '}
-          <a href="http://coli.org/quarter-1-2019-cost-of-living-index-released-3/">
-            COLI Organization
-          </a>
-        </p>
+        />
         <Plot
           data={[
             {
@@ -584,6 +453,8 @@ const MetricCard = props => {
             yaxis: { tite: { text: '%' } },
             title: 'Cost of Living Index',
             showlegend: false,
+            height: graphHeight,
+            width: graphWidth,
           }}
         />
         <Plot
@@ -623,10 +494,13 @@ const MetricCard = props => {
             yaxis: { tite: { text: '$' } },
             title: 'Rent',
             showlegend: false,
+            height: graphHeight,
+            width: graphWidth,
           }}
         />
-      </div>
-    </>
+        )
+      </TabPane>
+    </Tabs>
   );
 };
 export default MetricCard;
