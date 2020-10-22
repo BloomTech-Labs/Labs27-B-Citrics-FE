@@ -17,10 +17,10 @@ import {
   RemoveFirstMarker,
   RemoveAlerts,
   setSelectedData,
-} from '../../../../state/actions/searched-cities-actions';
+} from '../../../state/actions/searched-cities-actions';
 import axios from 'axios';
-import CityData from '../../../../data/cities';
-import { SaveCity } from '../../../../state/actions/searched-cities-actions';
+import CityData from '../../../data/cities';
+import { SaveCity } from '../../../state/actions/searched-cities-actions';
 
 const libraries = ['places'];
 
@@ -38,6 +38,16 @@ const options = {
   styles: mapStyles,
   disableDefaultUI: true,
   zoomControl: true,
+};
+
+const searchStyles = {
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: 'absolute',
+  zIndex: 2,
+  top: '70px',
 };
 
 // COMPONENT
@@ -143,7 +153,7 @@ const MapService = props => {
 
   return (
     <>
-      <div className="search-bar-container" style={{ width: '100%' }}>
+      <div className="search-bar-container" styles={searchStyles}>
         <SearchBar panToCenter={panTo} width={800} />
       </div>
       {alert ? (
@@ -161,11 +171,19 @@ const MapService = props => {
         <Button
           onClick={() => setVisible(!visible)}
           className="btn open-drawer"
+          style={{
+            background: '#e8833a',
+            color: 'white',
+            fontWeight: 'bold',
+            position: 'absolute',
+            zIndex: 2,
+          }}
         >
           <FontAwesomeIcon icon={['fas', 'list-ul']}></FontAwesomeIcon>
         </Button>
         <Drawer
-          width={500}
+          width={window.innerWidth > 900 ? 500 : window.innerWidth - 200}
+          className="drawer"
           mask={false}
           placement="left"
           closable={true}

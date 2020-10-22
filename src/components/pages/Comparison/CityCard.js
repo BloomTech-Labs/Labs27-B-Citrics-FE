@@ -1,22 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { Layout, Card } from 'antd';
+import { Card } from 'antd';
 
-import '../styles/home.css';
-import './FontAwesomeIcons/index';
+import '../../FontAwesomeIcons/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-const searchCard = {
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'flex-end',
-  width: 300,
-};
 
 const CityCard = props => {
   return (
     <>
-      <div className="search-cities" style={searchCard}>
+      <div className="search-cities">
         <Card bordered={true} style={{ width: 500, height: 475 }}>
           <img
             className="city-img"

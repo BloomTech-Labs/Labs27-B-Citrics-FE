@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import Plot from 'react-plotly.js';
 import { Tabs } from 'antd';
-const MetricCard = props => {
-  //change widths to look better
-  const metricCardLayout = {
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    textAlign: 'center',
-  };
 
+//change widths to look better
+const metricCardLayout = {
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  textAlign: 'center',
+  color: '#e8833a',
+};
+
+const MetricCard = props => {
   const { TabPane } = Tabs;
   const graphHeight = 'auto';
 
@@ -81,7 +83,7 @@ const MetricCard = props => {
               automargin: true,
               orientation: 'v',
             },
-            props.data.length == 3 && {
+            props.data.length === 3 && {
               y: [props.data[2].pop],
               x: [props.data[2].city],
               type: 'bar',
@@ -176,7 +178,7 @@ const MetricCard = props => {
               automargin: true,
               orientation: 'v',
             },
-            props.data.length == 3 && {
+            props.data.length === 3 && {
               y: [props.data[2].density_mi_sq],
               x: [props.data[2].city],
               type: 'bar',
@@ -223,7 +225,7 @@ const MetricCard = props => {
               automargin: true,
               orientation: 'v',
             },
-            props.data.length == 3 && {
+            props.data.length === 3 && {
               y: [props.data[2].individual],
               x: [props.data[2].city],
               type: 'bar',
@@ -267,7 +269,7 @@ const MetricCard = props => {
               automargin: true,
               orientation: 'v',
             },
-            props.data.length == 3 && {
+            props.data.length === 3 && {
               y: [props.data[2].household],
               x: [props.data[2].city],
               type: 'bar',
@@ -382,7 +384,7 @@ const MetricCard = props => {
               automargin: true,
               orientation: 'v',
             },
-            props.data.length == 3 && {
+            props.data.length === 3 && {
               y: [props.data[2].house],
               x: [props.data[2].city],
               type: 'bar',
@@ -476,7 +478,7 @@ const MetricCard = props => {
               automargin: true,
               orientation: 'v',
             },
-            props.data.length == 3 && {
+            props.data.length === 3 && {
               y: [props.data[2].COLI],
               x: [props.data[2].city],
               type: 'bar',
@@ -520,7 +522,7 @@ const MetricCard = props => {
               automargin: true,
               orientation: 'v',
             },
-            props.data.length == 3 && {
+            props.data.length === 3 && {
               y: [props.data[2].rent],
               x: [props.data[2].city],
               type: 'bar',

@@ -1,18 +1,41 @@
-/* html {
-  height: 100%;
-}
-body {
-  min-height: 100%;
-} */
-
-a {
+.nav a {
   padding-left: 2%;
   text-decoration: none;
   color: black;
 }
 
-a:hover {
+.nav a:hover {
   color: #e8833a;
+}
+
+.nav {
+  background: #B3B5B8;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.footer {
+  background: #778899;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.5em;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-citrics {
+  position: absolute;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  display: inline-block;
+  margin-right: 0px;
+  margin-left: auto;
+}
+
+.search-bar {
+  width: 800px;
 }
 
 .search-bar-container {
@@ -22,7 +45,7 @@ a:hover {
   align-items: center;
   position: absolute;
   z-index: 2;
-  top: 80px;
+  top: 70px;
 }
 
 .button-link {
@@ -71,6 +94,10 @@ a:hover {
 .open-drawer {
   position: absolute;
   z-index: 2;
+}
+
+.toggle {
+  width: 60%;
 }
 
 .city-select-banner {
@@ -145,6 +172,59 @@ a:hover {
 
 .city-name {
   text-align: center;
+}
+
+.row {
+  justify-content: space-evenly;
+  padding: 40px,
+}
+
+.col {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-cities {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 900px) {
+  .search-bar {
+    width: 550px;
+  }
+}
+
+@media (max-width: 800px) {
+  .search-bar {
+    width: 450px;
+  }
+}
+
+@media (max-width: 550px) {
+  .search-bar {
+    width: 300px;
+  }
+}
+
+@media (max-width: 500px) {
+  .search-bar {
+    width: 250px;
+  }
+}
+
+@media (max-width: 350px) {
+  .search-bar {
+    width: 170px;
+  }
+
+  .open-drawer {
+    bottom: 30px;
+  }
 }
 
 /* ANT DESIGN CAROUSEL OVERRIDE */
