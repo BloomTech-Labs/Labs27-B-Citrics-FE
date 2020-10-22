@@ -13,7 +13,10 @@ const metricCardLayout = {
 const MetricCard = props => {
   const { TabPane } = Tabs;
   const graphHeight = 'auto';
-  const graphWidth = '45%';
+
+  const city1Color = 'purple';
+  const city2Color = 'blue';
+  const city3Color = 'orange';
 
   if (!props.data[1]) {
     props.data[1] = {
@@ -51,11 +54,10 @@ const MetricCard = props => {
 
   return (
     <Tabs
-      className="search-cities"
       style={metricCardLayout}
       centered="true"
       size="large"
-      tabBarGutter="10"
+      tabBarGutter="1"
     >
       <TabPane tab="Population Statistics" key="1" style={{ width: '100%' }}>
         <h2>Population Metrics</h2>
@@ -66,7 +68,7 @@ const MetricCard = props => {
               x: [props.data[0].city],
               type: 'bar',
               mode: 'lines+markers',
-              marker: { color: 'red' },
+              marker: { color: city1Color },
               name: props.data[0].city,
               automargin: true,
               orientation: 'v',
@@ -75,7 +77,7 @@ const MetricCard = props => {
               y: [props.data[1].pop],
               x: [props.data[1].city],
               type: 'bar',
-              marker: { color: 'blue' },
+              marker: { color: city2Color },
               name: props.data[1].city,
               automargin: true,
               orientation: 'v',
@@ -84,62 +86,74 @@ const MetricCard = props => {
               y: [props.data[2].pop],
               x: [props.data[2].city],
               type: 'bar',
-              marker: { color: 'green' },
+              marker: { color: city3Color },
               name: props.data[2].city,
               automargin: true,
               orientation: 'v',
             },
             // { type: 'bar', x: [1, 2, 3], y: [2, 5, 3] },
           ]}
+          style={{
+            height: graphHeight,
+            width: window.innerWidth < 450 ? '80%' : '100%',
+          }}
           layout={{
             xaxis: { title: { text: 'City' } },
             yaxis: { tite: { text: 'Population' } },
             title: 'Population Total',
             showlegend: false,
-            height: graphHeight,
-            width: graphWidth,
+            autosize: true,
           }}
         />
         <Plot
           data={[
             {
               y: Object.values(props.data[0].pop_hist),
-              x: Object.keys(props.data[0].pop_hist),
+              x: Object.keys(props.data[0].pop_hist).map(element =>
+                element.slice(4, 8)
+              ),
               type: 'scatter',
               mode: 'lines+markers',
-              marker: { color: 'red' },
+              marker: { color: city1Color },
               name: props.data[0].city,
               automargin: true,
               orientation: 'v',
             },
             props.data.length >= 2 && {
               y: Object.values(props.data[1].pop_hist),
-              x: Object.keys(props.data[1].pop_hist),
+              x: Object.keys(props.data[1].pop_hist).map(element =>
+                element.slice(4, 8)
+              ),
               type: 'scatter',
               mode: 'lines+markers',
-              marker: { color: 'blue' },
+              marker: { color: city2Color },
               name: props.data[0].city,
               automargin: true,
               orientation: 'v',
             },
             props.data.length === 3 && {
               y: Object.values(props.data[2].pop_hist),
-              x: Object.keys(props.data[2].pop_hist),
+              x: Object.keys(props.data[2].pop_hist).map(element =>
+                element.slice(4, 8)
+              ),
               type: 'scatter',
               mode: 'lines+markers',
-              marker: { color: 'green' },
+              marker: { color: city3Color },
               name: props.data[0].city,
               automargin: true,
               orientation: 'v',
             },
           ]}
+          style={{
+            height: graphHeight,
+            width: window.innerWidth < 450 ? '80%' : '100%',
+          }}
           layout={{
             xaxis: { title: { text: 'City' } },
             yaxis: { tite: { text: 'Pop.' } },
             title: 'Population History',
             showlegend: false,
-            height: graphHeight,
-            width: graphWidth,
+            autosize: true,
           }}
         />
         <Plot
@@ -149,7 +163,7 @@ const MetricCard = props => {
               x: [props.data[0].city],
               type: 'bar',
               mode: 'lines+markers',
-              marker: { color: 'red' },
+              marker: { color: city1Color },
               name: props.data[0].city,
               automargin: true,
               orientation: 'v',
@@ -158,7 +172,7 @@ const MetricCard = props => {
               y: [props.data[1].density_mi_sq],
               x: [props.data[1].city],
               type: 'bar',
-              marker: { color: 'blue' },
+              marker: { color: city2Color },
               name: props.data[1].city,
               automargin: true,
               orientation: 'v',
@@ -167,20 +181,23 @@ const MetricCard = props => {
               y: [props.data[2].density_mi_sq],
               x: [props.data[2].city],
               type: 'bar',
-              marker: { color: 'green' },
+              marker: { color: city3Color },
               name: props.data[2].city,
               automargin: true,
               orientation: 'v',
             },
             // { type: 'bar', x: [1, 2, 3], y: [2, 5, 3] },
           ]}
+          style={{
+            height: graphHeight,
+            width: window.innerWidth < 450 ? '80%' : '100%',
+          }}
           layout={{
             xaxis: { title: { text: 'City' } },
             yaxis: { tite: { text: 'Population' } },
             title: 'Population Density by Square Mile',
             showlegend: false,
-            height: graphHeight,
-            width: graphWidth,
+            autosize: true,
           }}
         />
       </TabPane>
@@ -193,7 +210,7 @@ const MetricCard = props => {
               x: [props.data[0].city],
               type: 'bar',
               mode: 'lines+markers',
-              marker: { color: 'red' },
+              marker: { color: city1Color },
               name: props.data[0].city,
               automargin: true,
               orientation: 'v',
@@ -202,7 +219,7 @@ const MetricCard = props => {
               y: [props.data[1].individual],
               x: [props.data[1].city],
               type: 'bar',
-              marker: { color: 'blue' },
+              marker: { color: city2Color },
               name: props.data[1].city,
               automargin: true,
               orientation: 'v',
@@ -211,20 +228,23 @@ const MetricCard = props => {
               y: [props.data[2].individual],
               x: [props.data[2].city],
               type: 'bar',
-              marker: { color: 'green' },
+              marker: { color: city3Color },
               name: props.data[2].city,
               automargin: true,
               orientation: 'v',
             },
             // { type: 'bar', x: [1, 2, 3], y: [2, 5, 3] },
           ]}
+          style={{
+            height: graphHeight,
+            width: window.innerWidth < 450 ? '80%' : '100%',
+          }}
           layout={{
             xaxis: { title: { text: 'City' } },
             yaxis: { tite: { text: 'Income in Dollars' } },
             title: 'Income by Individual',
             showlegend: false,
-            height: graphHeight,
-            width: graphWidth,
+            autosize: true,
           }}
         />
         <Plot
@@ -234,7 +254,7 @@ const MetricCard = props => {
               x: [props.data[0].city],
               type: 'bar',
               mode: 'lines+markers',
-              marker: { color: 'red' },
+              marker: { color: city1Color },
               name: props.data[0].city,
               automargin: true,
               orientation: 'v',
@@ -243,7 +263,7 @@ const MetricCard = props => {
               y: [props.data[1].household],
               x: [props.data[1].city],
               type: 'bar',
-              marker: { color: 'blue' },
+              marker: { color: city2Color },
               name: props.data[1].city,
               automargin: true,
               orientation: 'v',
@@ -252,20 +272,23 @@ const MetricCard = props => {
               y: [props.data[2].household],
               x: [props.data[2].city],
               type: 'bar',
-              marker: { color: 'green' },
+              marker: { color: city3Color },
               name: props.data[2].city,
               automargin: true,
               orientation: 'v',
             },
             // { type: 'bar', x: [1, 2, 3], y: [2, 5, 3] },
           ]}
+          style={{
+            height: graphHeight,
+            width: window.innerWidth < 450 ? '80%' : '100%',
+          }}
           layout={{
             xaxis: { title: { text: 'City' } },
             yaxis: { tite: { text: 'Income in Dollars' } },
             title: 'Income by Household',
             showlegend: false,
-            height: graphHeight,
-            width: graphWidth,
+            autosize: true,
           }}
         />
         <Plot
@@ -283,7 +306,7 @@ const MetricCard = props => {
               ),
               type: 'scatter',
               mode: 'lines+markers',
-              marker: { color: 'red' },
+              marker: { color: city1Color },
               name: props.data[0].city,
               automargin: true,
               orientation: 'v',
@@ -301,7 +324,7 @@ const MetricCard = props => {
               ),
               type: 'scatter',
               mode: 'lines+markers',
-              marker: { color: 'blue' },
+              marker: { color: city2Color },
               name: props.data[1].city,
               automargin: true,
               orientation: 'v',
@@ -319,19 +342,22 @@ const MetricCard = props => {
               ),
               type: 'scatter',
               mode: 'lines+markers',
-              marker: { color: 'green' },
+              marker: { color: city3Color },
               name: props.data[2].city,
               automargin: true,
               orientation: 'v',
             },
           ]}
+          style={{
+            height: graphHeight,
+            width: window.innerWidth < 450 ? '80%' : '100%',
+          }}
           layout={{
             xaxis: { title: { text: 'City' } },
             yaxis: { tite: { text: 'Price in Dollars' } },
             title: 'Income History',
             showlegend: false,
-            height: graphHeight,
-            width: graphWidth,
+            autosize: true,
           }}
         />
       </TabPane>
@@ -343,7 +369,7 @@ const MetricCard = props => {
               x: [props.data[0].city],
               type: 'bar',
               mode: 'lines+markers',
-              marker: { color: 'red' },
+              marker: { color: city1Color },
               name: props.data[0].city,
               automargin: true,
               orientation: 'v',
@@ -352,7 +378,7 @@ const MetricCard = props => {
               y: [props.data[1].house],
               x: [props.data[1].city],
               type: 'bar',
-              marker: { color: 'blue' },
+              marker: { color: city2Color },
               name: props.data[1].city,
               automargin: true,
               orientation: 'v',
@@ -361,61 +387,73 @@ const MetricCard = props => {
               y: [props.data[2].house],
               x: [props.data[2].city],
               type: 'bar',
-              marker: { color: 'green' },
+              marker: { color: city3Color },
               name: props.data[2].city,
               automargin: true,
               orientation: 'v',
             },
           ]}
+          style={{
+            height: graphHeight,
+            width: window.innerWidth < 450 ? '80%' : '100%',
+          }}
           layout={{
             xaxis: { title: { text: 'City' } },
             yaxis: { tite: { text: '$' } },
             title: 'Average House Pricing',
             showlegend: false,
-            height: graphHeight,
-            width: graphWidth,
+            autosize: true,
           }}
         />
         <Plot
           data={[
             {
               y: Object.values(props.data[0].home_hist),
-              x: Object.keys(props.data[0].home_hist),
+              x: Object.keys(props.data[0].home_hist).map(date =>
+                date.substr(0, 7).replace('_', '/')
+              ),
               type: 'scatter',
               mode: 'lines+markers',
-              marker: { color: 'red' },
+              marker: { color: city1Color },
               name: props.data[0].city,
               automargin: true,
               orientation: 'v',
             },
             {
               y: Object.values(props.data[1].home_hist),
-              x: Object.keys(props.data[1].home_hist),
+              x: Object.keys(props.data[1].home_hist).map(date =>
+                date.substr(0, 7).replace('_', '/')
+              ),
               type: 'scatter',
               mode: 'lines+markers',
-              marker: { color: 'blue' },
+              marker: { color: city2Color },
               name: props.data[1].city,
               automargin: true,
               orientation: 'v',
             },
             {
               y: Object.values(props.data[2].home_hist),
-              x: Object.keys(props.data[2].home_hist),
+              x: Object.keys(props.data[2].home_hist).map(date =>
+                date.substr(0, 7).replace('_', '/')
+              ),
               type: 'scatter',
               mode: 'lines+markers',
-              marker: { color: 'green' },
+              marker: { color: city3Color },
               name: props.data[2].city,
               automargin: true,
               orientation: 'v',
             },
           ]}
+          style={{
+            height: graphHeight,
+            width: window.innerWidth < 450 ? '80%' : '100%',
+          }}
           layout={{
             xaxis: { title: { text: 'City' } },
             yaxis: { tite: { text: 'Price in Dollars' } },
             title: 'House Price History',
             showlegend: false,
-            height: graphHeight,
-            width: graphWidth,
+            autosize: true,
           }}
         />
         <Plot
@@ -425,7 +463,7 @@ const MetricCard = props => {
               x: [props.data[0].city],
               type: 'bar',
               mode: 'lines+markers',
-              marker: { color: 'red' },
+              marker: { color: city1Color },
               name: props.data[0].city,
               automargin: true,
               orientation: 'v',
@@ -434,7 +472,7 @@ const MetricCard = props => {
               y: [props.data[1].COLI],
               x: [props.data[1].city],
               type: 'bar',
-              marker: { color: 'blue' },
+              marker: { color: city2Color },
               name: props.data[1].city,
               automargin: true,
               orientation: 'v',
@@ -443,20 +481,23 @@ const MetricCard = props => {
               y: [props.data[2].COLI],
               x: [props.data[2].city],
               type: 'bar',
-              marker: { color: 'green' },
+              marker: { color: city3Color },
               name: props.data[2].city,
               automargin: true,
               orientation: 'v',
             },
             // { type: 'bar', x: [1, 2, 3], y: [2, 5, 3] },
           ]}
+          style={{
+            height: graphHeight,
+            width: window.innerWidth < 450 ? '80%' : '100%',
+          }}
           layout={{
             xaxis: { title: { text: 'City' } },
             yaxis: { tite: { text: '%' } },
             title: 'Cost of Living Index',
             showlegend: false,
-            height: graphHeight,
-            width: graphWidth,
+            autosize: true,
           }}
         />
         <Plot
@@ -466,7 +507,7 @@ const MetricCard = props => {
               x: [props.data[0].city],
               type: 'bar',
               mode: 'lines+markers',
-              marker: { color: 'red' },
+              marker: { color: city1Color },
               name: props.data[0].city,
               automargin: true,
               orientation: 'v',
@@ -475,7 +516,7 @@ const MetricCard = props => {
               y: [props.data[1].rent],
               x: [props.data[1].city],
               type: 'bar',
-              marker: { color: 'blue' },
+              marker: { color: city2Color },
               name: props.data[1].city,
               automargin: true,
               orientation: 'v',
@@ -484,20 +525,23 @@ const MetricCard = props => {
               y: [props.data[2].rent],
               x: [props.data[2].city],
               type: 'bar',
-              marker: { color: 'green' },
+              marker: { color: city3Color },
               name: props.data[2].city,
               automargin: true,
               orientation: 'v',
             },
             // { type: 'bar', x: [1, 2, 3], y: [2, 5, 3] },
           ]}
+          style={{
+            height: graphHeight,
+            width: window.innerWidth < 450 ? '80%' : '100%',
+          }}
           layout={{
             xaxis: { title: { text: 'City' } },
             yaxis: { tite: { text: '$' } },
             title: 'Rent',
             showlegend: false,
-            height: graphHeight,
-            width: graphWidth,
+            autosize: true,
           }}
         />
         )
