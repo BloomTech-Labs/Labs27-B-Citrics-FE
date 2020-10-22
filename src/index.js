@@ -7,40 +7,32 @@ import {
   Switch,
   Link,
 } from 'react-router-dom';
-import { Security, LoginCallback /*SecureRoute*/ } from '@okta/okta-react';
+import { Security, LoginCallback } from '@okta/okta-react';
 
 import 'antd/dist/antd.less';
-import { Card, Drawer, Layout } from 'antd';
+import { Drawer, Layout } from 'antd';
 
 import './components/FontAwesomeIcons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './styles/home.css';
 
 // REDUX
 import reducers from './state/reducers/index';
 import { createStore, applyMiddleware } from 'redux';
-import { Provider, useDispatch, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-thunk';
 
-// ACTIONS
-import { openDrawer, closeDrawer } from './state/actions/userActions';
-
 // COMPONENTS
-import { NotFoundPage } from './components/pages/NotFound';
-import { ExampleListPage } from './components/pages/ExampleList';
-import { ProfileListPage } from './components/pages/ProfileList';
 import { LoginPage } from './components/pages/Login';
-import { HomePage } from './components/pages/Home';
-import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
 
-import { LoadingComponent } from './components/common';
-import MapService from './components/pages/Home/SearchBar/mapservice';
-import SearchBar from './components/pages/Home/SearchBar/searchbar';
-import FooterContents from './components/footer';
+import MapService from './components/pages/Home/mapservice';
+import SearchBar from './components/pages/Home/searchbar';
+import FooterContents from './components/pages/Home/footer';
 
-import Profile from './components/pages/Home/Profile';
-import Compare from './components/comparePage';
+import Profile from './components/pages/Profile/Profile';
+import Compare from './components/pages/Comparison/comparePage';
 const { Header, Footer } = Layout;
 
 const store = createStore(reducers, applyMiddleware(thunk, logger));
@@ -61,10 +53,7 @@ function App() {
   // React Router has a nifty useHistory hook we can use at this level to ensure we have security around our routes.
   const history = useHistory();
 
-  const drawer_open = useSelector(state => state.userReducer.profileIsOpen);
   const [visible, setVisible] = useState(false);
-
-  const dispatch = useDispatch();
 
   const authHandler = () => {
     // We pass this to our <Security /> component that wraps our routes.
@@ -74,13 +63,7 @@ function App() {
 
   return (
     <Security {...config} onAuthRequired={authHandler}>
-      <Header
-        style={{
-          background: '#B3B5B8',
-          display: 'flex',
-          justifyContent: 'flex-end',
-        }}
-      >
+      <Header className="nav" style={{ background: '#B3B5B8' }}>
         <Link to="/">
           <FontAwesomeIcon icon={['fas', 'search']}></FontAwesomeIcon>
           Search
@@ -116,17 +99,7 @@ function App() {
         <Route path="/compare" component={Compare} />
         <Route path="/" component={MapService} />
       </Switch>
-      <Footer
-        style={{
-          background: '#778899',
-          display: 'flex',
-          justifyContent: 'space-between',
-          fontSize: '1.5em',
-          position: 'relative',
-          bottom: '0',
-          width: '100%',
-        }}
-      >
+      <Footer className="footer">
         <FooterContents />
       </Footer>
     </Security>
