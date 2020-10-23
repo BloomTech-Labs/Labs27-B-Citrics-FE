@@ -7,6 +7,7 @@ For steps on how to work with this repository [please see here](https://docs.lab
 # Citrics
 
 You can find the deployed project at https://main.d16fcu54brr43i.amplifyapp.com/.
+You can find a demo video of project functionality as of Labs25-10/23/2020 at https://youtu.be/wizHi7cXF5o
 
 ## Contributors
 
